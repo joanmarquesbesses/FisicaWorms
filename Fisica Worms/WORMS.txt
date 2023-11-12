@@ -1,0 +1,31 @@
+# WORMS
+
+Collaborators:
+
+- Joan Marquès - https://github.com/joanmarquesbesses
+- Salvador Bernades - https://github.com/SalvaBernades
+- Pol Celaya - https://github.com/pcelaya
+
+Controls:
+
+- Movement
+
+    A: Move Right
+
+    D: Move Left
+
+    SPACE: Shoot
+
+    R: Return the ball
+
+    Right/Left Arrow: Change velocity of the ball
+
+    Um/Down Arroe: Change angle of the cannon
+
+- Others:
+
+   F2 Change mode
+
+   F3 Collision type
+
+   
