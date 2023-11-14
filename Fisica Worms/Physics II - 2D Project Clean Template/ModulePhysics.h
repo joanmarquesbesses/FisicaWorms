@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Timer.h"
+#include <vector>
 
 #include "Ball.h"
 
@@ -11,6 +12,7 @@ enum Collisions {
 	Iteratively,
 	Raycast
 };
+
 
 class ModulePhysics : public Module
 {
@@ -24,8 +26,16 @@ public:
 	bool CleanUp();
 
 	void setBallPointer(PhysicEntity* ball);
-	PhysicEntity* ball;
-	PhysicEntity* ballg;
+
+	Force Calculate_Gravity();
+	Force Calculate_Aerodynamics();
+	Force Calculate_Hydrodinamics();
+
+	void Integrator_Euler();
+	void Integrator_SympleticEuler();
+	void Integrator_VelocityVerlet();
+
+	std::vector <PhysicEntity*>* pObjects;
 public:
 	bool time1 = true;
 	bool time2 = false;

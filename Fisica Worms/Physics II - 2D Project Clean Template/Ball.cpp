@@ -5,7 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleSceneIntro.h"
 
-Ball::Ball(fPoint position, float mass, float velocity, float acceleration, int radius, float angle) : PhysicEntity(position, mass, velocity, acceleration)
+Ball::Ball(fPoint position, float mass, float velocity, fPoint acceleration, int radius, float angle) : PhysicEntity(position, mass, velocity, acceleration)
 {
 	this->angle = angle;
 	this->radius = radius;

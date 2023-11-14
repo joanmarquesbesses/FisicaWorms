@@ -16,27 +16,24 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
-	fPoint hola;
-	hola.x = 30.0f;
-	hola.y = 690.0f;
+	fPoint initial_pos;
+	initial_pos.x = 30.0f;
+	initial_pos.y = 30.0f;
 
-	Ball* bola = new Ball(hola, 5, 10, 5, 5, 45);
-	App->physics->setBallPointer(bola);
+	fPoint acc;
+	acc.x = 5.0f;
+	acc.y = 5.0f;
+
+	PhysicEntity* bola = new Ball(initial_pos, 5, 10, acc, 5, 45);
+	App->physics->pObjects->push_back(bola);
 	bola = nullptr;
 
-	hola.x = 450.0f;
-	hola.y = 30.0f;
+	//// posar velocity x and y a la ball.h
+	//ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
+	//ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
 
-	bola = new Ball(hola, 5, 0, 0, 5, 45);
-	ballg = bola;
-	bola = nullptr;
-
-	// posar velocity x and y a la ball.h
-	ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-	ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-
-	ballg->velocityVec.x = ballg->velocity * cos(ballg->angle * 3.1415 / 180);
-	ballg->velocityVec.y = ballg->velocity * sin(ballg->angle * 3.1415 / 180);
+	//ballg->velocityVec.x = ballg->velocity * cos(ballg->angle * 3.1415 / 180);
+	//ballg->velocityVec.y = ballg->velocity * sin(ballg->angle * 3.1415 / 180);
 
 	return true;
 }
@@ -45,7 +42,9 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	time = (App->dt / 1000);
-	ballg->velocityVec.y -= App->gravity * time;
+	Calculate_Gravity();
+	Integrator_Euler();
+	/*ballg->velocityVec.y -= App->gravity * time;
 	ballg->position.y -= ballg->velocityVec.y;
 	// Crear funcions per a cada modo de launch
 	switch (collision) {
@@ -201,7 +200,7 @@ update_status ModulePhysics::PreUpdate()
 			}
 			break;
 
-	}
+	}*/
 	return UPDATE_CONTINUE;
 }
 
@@ -247,7 +246,7 @@ update_status ModulePhysics::PostUpdate()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
-		ball->position.x = App->scene_intro->Canon.x + (App->scene_intro->Canon.w / 2);
+		/*ball->position.x = App->scene_intro->Canon.x + (App->scene_intro->Canon.w / 2);
 		ball->position.y = App->scene_intro->Canon.y + (App->scene_intro->Canon.h / 2);
 		ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
 		ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
@@ -255,9 +254,9 @@ update_status ModulePhysics::PostUpdate()
 		ballg->position.y = 30;
 		ballg->velocityVec.x = 0;
 		ballg->velocityVec.y = 0;
-		launch = false;
+		launch = false;*/
 	}
-	if (launch == false) {
+	/*if (launch == false) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 			ball->angle += 0.1f;
 		}
@@ -275,10 +274,10 @@ update_status ModulePhysics::PostUpdate()
 				ball->velocity -= 0.1f;
 			}
 		}
-	}
+	}*/
 
 	static char title[256];
-	sprintf_s(title, 256, "Velocity: %.2f Angle: %.2f VelocityX: %.2f VelocityY: %.2f, dt: %.2f", ball->velocity, ball->angle, ball->velocityVec.x, ball->velocityVec.y, App->dt);
+	/*sprintf_s(title, 256, "Velocity: %.2f Angle: %.2f VelocityX: %.2f VelocityY: %.2f, dt: %.2f", ball->velocity, ball->angle, ball->velocityVec.x, ball->velocityVec.y, App->dt);*/
 
 	App->window->SetTitle(title);
 
@@ -293,8 +292,27 @@ bool ModulePhysics::CleanUp()
 
 	return true;
 }
+//
+//void ModulePhysics::setBallPointer(PhysicEntity* ball)
+//{
+//	this->ball = ball;
+//}
 
-void ModulePhysics::setBallPointer(PhysicEntity* ball)
+Force ModulePhysics::Calculate_Gravity()
 {
-	this->ball = ball;
+	for (size_t i = 0; i < pObjects->size(); i++)
+	{
+		pObjects->at(i)->force.y = pObjects->at(i)->mass * App->gravity * -1;
+	}
+	return Force();
+}
+
+void ModulePhysics::Integrator_Euler()
+{
+	for (size_t i = 0; i < pObjects->size(); i++)
+	{
+		pObjects->at(i)->acceleration.y = pObjects->at(i)->force.y / pObjects->at(i)->mass;
+		pObjects->at(i)->velocityVec.y = pObjects->at(i)->acceleration.y * (App->dt / 1000);
+		pObjects->at(i)->position.y = pObjects->at(i)->velocityVec.y * (App->dt / 1000);
+	}
 }

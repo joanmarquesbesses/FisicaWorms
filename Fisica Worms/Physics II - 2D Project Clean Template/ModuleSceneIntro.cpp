@@ -26,9 +26,6 @@ bool ModuleSceneIntro::Start()
 	Canon.y = 680;
 	Canon.w = 20;
 	Canon.h = 20;
-	//porva
-
-	//
 
 	return ret;
 }
@@ -44,19 +41,19 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	Uint8 r = 255;
-	Uint8 g = 0;
-	Uint8 b = 0;
+	Uint8 r = 255, g = 0, b = 0;
 	App->renderer->DrawLine(0, 700, 1024, 700, r, g, b);
 
 	SDL_Rect water{ 1024,700,300,58 };
-	
 	App->renderer->DrawQuad(water, 0,0,255);
-	r = 125; g = 33; b = 129;
 
+	r = 125; g = 33; b = 129;
 	App->renderer->DrawQuad(Canon, r, g, b);
-	App->physics->ball->Draw();
-	App->physics->ballg->Draw();
+
+	for (size_t i = 0; i < App->physics->pObjects->size(); i++)
+	{
+		App->physics->pObjects->at(i)->Draw();
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
 	{
@@ -69,10 +66,10 @@ update_status ModuleSceneIntro::Update()
 		Canon.x = canonX;
 	}
 
-	if (!App->physics->launch) 
+	/*if (!App->physics->launch) 
 	{
 		App->physics->ball->Recenter();
-	}
+	}*/
 
 	LOG("%d",Canon.x);
 	return UPDATE_CONTINUE;

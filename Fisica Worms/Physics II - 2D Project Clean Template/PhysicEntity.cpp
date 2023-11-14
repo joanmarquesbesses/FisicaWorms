@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 
-PhysicEntity::PhysicEntity(fPoint position, float mass, float velocity, float acceleration)
+PhysicEntity::PhysicEntity(fPoint position, float mass, float velocity, fPoint acceleration)
 {
 	this->position = position;
 	this->mass = mass;

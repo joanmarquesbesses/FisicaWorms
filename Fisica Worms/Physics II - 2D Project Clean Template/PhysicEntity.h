@@ -3,10 +3,15 @@
 
 #include "SDL_image/include/SDL_image.h"
 
+struct Force {
+	float x;
+	float y;
+};
+
 class PhysicEntity
 {
 public:
-	PhysicEntity(fPoint position, float mass, float velocity, float acceleration);
+	PhysicEntity(fPoint position, float mass, float velocity, fPoint acceleration);
 	virtual void Draw();
 	virtual void Move();
 	float velocity;
@@ -14,9 +19,11 @@ public:
 	fPoint position;
 	float angle;
 	virtual void Recenter();
-protected:
+
+	Force force;
+
 	float mass;
-	float acceleration;
+	fPoint acceleration;
 	SDL_Texture* texture = nullptr;
 };
 
