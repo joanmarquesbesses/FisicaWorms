@@ -49,21 +49,28 @@ update_status ModuleSceneIntro::Update()
 	Uint8 b = 0;
 	App->renderer->DrawLine(0, 700, 1024, 700, r, g, b);
 
-	r = 125;
-	g = 33;
-	b = 129;
+	SDL_Rect water{ 1024,700,300,58 };
 	
+	App->renderer->DrawQuad(water, 0,0,255);
+	r = 125; g = 33; b = 129;
+
 	App->renderer->DrawQuad(Canon, r, g, b);
 	App->physics->ball->Draw();
 	App->physics->ballg->Draw();
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		Canon.x += (10 * (App->dt / 1000) *(-1));
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
+	{
+		canonX -= 10 * (App->dt / 100);
+		Canon.x = canonX;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		Canon.x += (100 * (App->dt / 1000));
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
+	{
+		canonX += 10 * (App->dt / 100);
+		Canon.x = canonX;
 	}
-	if (!App->physics->launch) {
+
+	if (!App->physics->launch) 
+	{
 		App->physics->ball->Recenter();
 	}
 

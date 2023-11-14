@@ -60,6 +60,5 @@ public:
 
 	SDL_Rect Canon;
 
-
-
+	float canonX;
 };
