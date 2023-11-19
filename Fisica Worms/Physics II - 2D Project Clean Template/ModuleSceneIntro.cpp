@@ -50,9 +50,9 @@ update_status ModuleSceneIntro::Update()
 	r = 125; g = 33; b = 129;
 	App->renderer->DrawQuad(Canon, r, g, b);
 
-	for (size_t i = 0; i < App->physics->pObjects->size(); i++)
+	for (size_t i = 0; i < App->physics->pObjects.size(); i++)
 	{
-		App->physics->pObjects->at(i)->Draw();
+		App->physics->pObjects.at(i)->Draw();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 

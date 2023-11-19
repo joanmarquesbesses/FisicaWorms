@@ -18,16 +18,13 @@ bool ModulePhysics::Start()
 	LOG("Creating Physics 2D environment");
 	fPoint initial_pos;
 	initial_pos.x = 30.0f;
-	initial_pos.y = 30.0f;
+	initial_pos.y = 100.0f;
 
 	fPoint acc;
-	acc.x = 5.0f;
-	acc.y = 5.0f;
-
-	PhysicEntity* bola = new Ball(initial_pos, 5, 10, acc, 5, 45);
-	App->physics->pObjects->push_back(bola);
-	bola = nullptr;
-
+	acc.x = 0.0f;
+	acc.y = 0.0f;
+ 
+	App->physics->pObjects.push_back(new Ball(initial_pos, 50, 10, acc, 5, 45));
 	//// posar velocity x and y a la ball.h
 	//ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
 	//ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
@@ -300,19 +297,19 @@ bool ModulePhysics::CleanUp()
 
 Force ModulePhysics::Calculate_Gravity()
 {
-	for (size_t i = 0; i < pObjects->size(); i++)
+	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		pObjects->at(i)->force.y = pObjects->at(i)->mass * App->gravity * -1;
+		pObjects.at(i)->force.y = pObjects.at(i)->mass * App->gravity * -1;
 	}
 	return Force();
 }
 
 void ModulePhysics::Integrator_Euler()
 {
-	for (size_t i = 0; i < pObjects->size(); i++)
+	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		pObjects->at(i)->acceleration.y = pObjects->at(i)->force.y / pObjects->at(i)->mass;
-		pObjects->at(i)->velocityVec.y = pObjects->at(i)->acceleration.y * (App->dt / 1000);
-		pObjects->at(i)->position.y = pObjects->at(i)->velocityVec.y * (App->dt / 1000);
+		pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
+		pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+		pObjects.at(i)->position.y -= pObjects.at(i)->velocityVec.y;
 	}
 }
