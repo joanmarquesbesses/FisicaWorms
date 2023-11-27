@@ -34,7 +34,7 @@ bool ModulePhysics::Start()
 	return true;
 }
 
-// 
+
 update_status ModulePhysics::PreUpdate()
 {
 	time = (App->dt / 1000);
@@ -298,8 +298,10 @@ void ModulePhysics::Calculate_Gravity()
 {
 	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		pObjects.at(i)->force.y = pObjects.at(i)->mass * App->gravity;
-		pObjects.at(i)->force.x = 0;
+		if (pObjects.at(i)->active == true) {
+			pObjects.at(i)->force.y = pObjects.at(i)->mass * App->gravity;
+			pObjects.at(i)->force.x = 0;
+		}
 	}
 }
 
@@ -307,15 +309,17 @@ void ModulePhysics::Integrator_Euler()
 {
 	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		// Y
-		pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
-		pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
-		pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
+		if (pObjects.at(i)->active == true) {
+			// Y
+			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
 
-		// X
-		pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
-		pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
-		pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
+			// X
+			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
+		}
 	}
 }
 
@@ -325,4 +329,14 @@ void ModulePhysics::setUpVelocity()
 	{
 		pObjects.at(i)->setUpVelocity();
 	}
+}
+
+void ModulePhysics::reset(PhysicEntity* pObjects)
+{
+	pObjects->force.y = 0;
+	pObjects->force.x = 0;
+	pObjects->acceleration.y = 0;
+	pObjects->velocityVec.y = 0;
+	pObjects->acceleration.x = 0;
+	pObjects->velocityVec.x = 0;
 }

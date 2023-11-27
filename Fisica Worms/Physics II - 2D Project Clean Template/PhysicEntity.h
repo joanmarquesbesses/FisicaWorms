@@ -23,7 +23,7 @@ public:
 	void setUpVelocity();
 
 	Force force;
-
+	bool active = true;
 	float mass;
 	fPoint acceleration;
 	SDL_Texture* texture = nullptr;

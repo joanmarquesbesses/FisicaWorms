@@ -29,11 +29,13 @@ bool ModuleSceneIntro::Start()
 
 	fPoint initial_pos;
 	initial_pos.x = 30.0f;
-	initial_pos.y = 680.0f;
+	initial_pos.y = 690.0f;
 
-	App->physics->pObjects.push_back(new Ball(initial_pos, 1, 10, 0, 45));
+	bola = new Ball(initial_pos, 1, 10, 0, 45);
+
+	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
-
+	bola->active = false;
 	return ret;
 }
 
@@ -70,7 +72,24 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
 	{
-		Canon.x += canonX;
+		Canon.x += canonX + 1;
+	}
+
+	if (bola->active == false) {
+		bola->position.x = Canon.x + 10;
+		bola->position.y = Canon.y + 10;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		bola->active = true;
+		bola->setUpVelocity();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		bola->active = false;
+		App->physics->reset(bola);
 	}
 
 	/*if (!App->physics->launch) 

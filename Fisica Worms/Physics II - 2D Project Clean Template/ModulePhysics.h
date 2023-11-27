@@ -42,6 +42,8 @@ public:
 
 	void setUpVelocity();
 
+	void reset(PhysicEntity* pObjects);
+
 	std::vector <PhysicEntity*> pObjects;
 public:
 	bool time1 = true;

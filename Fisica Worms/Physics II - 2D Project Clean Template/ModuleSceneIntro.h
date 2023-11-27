@@ -60,5 +60,7 @@ public:
 
 	SDL_Rect Canon;
 
+	Ball* bola;
+
 	float canonX;
 };
