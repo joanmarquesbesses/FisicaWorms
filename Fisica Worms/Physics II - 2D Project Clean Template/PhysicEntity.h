@@ -11,7 +11,7 @@ struct Force {
 class PhysicEntity
 {
 public:
-	PhysicEntity(fPoint position, float mass, float velocity, fPoint acceleration);
+	PhysicEntity(fPoint position, float mass, float velocity);
 	virtual void Draw();
 	virtual void Move();
 	float velocity;
@@ -19,6 +19,8 @@ public:
 	fPoint position;
 	float angle;
 	virtual void Recenter();
+
+	void setUpVelocity();
 
 	Force force;
 

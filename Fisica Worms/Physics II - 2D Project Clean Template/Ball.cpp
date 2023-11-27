@@ -5,7 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleSceneIntro.h"
 
-Ball::Ball(fPoint position, float mass, float velocity, fPoint acceleration, int radius, float angle) : PhysicEntity(position, mass, velocity, acceleration)
+Ball::Ball(fPoint position, float mass, float velocity, int radius, float angle) : PhysicEntity(position, mass, velocity)
 {
 	this->angle = angle;
 	this->radius = radius;
@@ -31,3 +31,4 @@ void Ball::Recenter()
 	this->position.x = App->scene_intro->Canon.x + (App->scene_intro->Canon.w / 2);
 	this->position.y = App->scene_intro->Canon.y + (App->scene_intro->Canon.h / 2);
 }
+

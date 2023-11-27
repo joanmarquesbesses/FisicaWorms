@@ -31,15 +31,16 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	void setBallPointer(PhysicEntity* ball);
 
-	Force Calculate_Gravity();
+	void Calculate_Gravity();
 	Force Calculate_Aerodynamics();
 	Force Calculate_Hydrodinamics();
 
 	void Integrator_Euler();
 	void Integrator_SympleticEuler();
 	void Integrator_VelocityVerlet();
+
+	void setUpVelocity();
 
 	std::vector <PhysicEntity*> pObjects;
 public:

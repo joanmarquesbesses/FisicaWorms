@@ -27,6 +27,13 @@ bool ModuleSceneIntro::Start()
 	Canon.w = 20;
 	Canon.h = 20;
 
+	fPoint initial_pos;
+	initial_pos.x = 30.0f;
+	initial_pos.y = 680.0f;
+
+	App->physics->pObjects.push_back(new Ball(initial_pos, 1, 10, 0, 45));
+	App->physics->setUpVelocity();
+
 	return ret;
 }
 
@@ -55,15 +62,15 @@ update_status ModuleSceneIntro::Update()
 		App->physics->pObjects.at(i)->Draw();
 	}
 
+	canonX = 10 * (App->dt / 100);
+
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
 	{
-		canonX -= 10 * (App->dt / 100);
-		Canon.x = canonX;
+		Canon.x -= canonX;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
 	{
-		canonX += 10 * (App->dt / 100);
-		Canon.x = canonX;
+		Canon.x += canonX;
 	}
 
 	/*if (!App->physics->launch) 
