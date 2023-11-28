@@ -13,11 +13,17 @@
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
-enum Collisions {
-	No,
-	Teleport,
-	Iteratively,
-	Raycast
+enum class Collisions {
+	NO,
+	TELEPORT,
+	ITERATIVE,
+	RAYCAST
+};
+
+enum class Integrators {
+	EULER,
+	SYMPLETIC,
+	VERLET
 };
 
 
@@ -55,11 +61,12 @@ public:
 	bool time1 = true;
 	bool time2 = false;
 	float time;
-	bool mode1 = true;
-	bool mode2, mode3 = false;
+
 	bool launch, backtrack = false;
 	Timer flytime;
 	bool debug;
 	float velocityx, velocityy;
-	Collisions collision = No;
+
+	Collisions collision = Collisions::NO;
+	Integrators integrator = Integrators::EULER;
 };

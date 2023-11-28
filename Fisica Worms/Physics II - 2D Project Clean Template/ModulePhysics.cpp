@@ -35,8 +35,59 @@ update_status ModulePhysics::PreUpdate()
 {
 	time = (App->dt / 1000);
 	Calculate_Gravity();
-	Integrator_Euler();
-	Collision_NoAdjustemnt();
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
+	{
+		switch (integrator)
+		{
+		case Integrators::EULER:
+			Integrator_Euler();
+			integrator = Integrators::SYMPLETIC;
+			break;
+
+		case Integrators::SYMPLETIC:
+			Integrator_SympleticEuler();
+			integrator = Integrators::VERLET;
+			break;
+
+		case Integrators::VERLET:
+			Integrator_VelocityVerlet();
+			integrator = Integrators::EULER;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
+	{
+		switch (collision) 
+		{
+		case Collisions::NO:
+			Collision_NoAdjustment();
+			collision = Collisions::TELEPORT;
+			break;
+
+		case Collisions::TELEPORT:
+			Collision_Teleport();
+			collision = Collisions::ITERATIVE;
+			break;
+
+		case Collisions::ITERATIVE:
+			Collision_Iterative();
+			collision = Collisions::RAYCAST;
+			break;
+
+		case Collisions::RAYCAST:
+			Collision_Raycast();
+			collision = Collisions::NO;
+			break;
+
+		default:
+			break;
+		}
+	}
 
 	/*ballg->velocityVec.y -= App->gravity * time;
 	ballg->position.y -= ballg->velocityVec.y;
@@ -207,38 +258,6 @@ update_status ModulePhysics::PostUpdate()
 	if(!debug)
 		return UPDATE_CONTINUE;
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		if (mode1) {
-			mode2 = true;
-			mode1 = false;
-		} else if (mode2) {
-			mode3 = true;
-			mode2 = false;
-		} else if (mode3) {
-			mode1 = true;
-			mode3 = false;
-		}
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		switch (collision) {
-		case No:
-			collision = Teleport;
-			break;
-		case Teleport:
-			collision = Iteratively;
-			break;
-		case Iteratively:
-			collision = Raycast;
-			break;
-		case Raycast:
-			collision = No;
-			break;
-		default:
-			break;
-		}
-	}
-
 	/*if (launch == false) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 			ball->angle += 0.1f;
@@ -301,6 +320,25 @@ void ModulePhysics::Integrator_Euler()
 		{
 			// Y
 			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+
+			// X
+			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
+		}
+	}
+}
+
+void ModulePhysics::Integrator_SympleticEuler()
+{
+	for (size_t i = 0; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(i)->active)
+		{
+			// Y
+			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
 			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
 			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
 
@@ -309,6 +347,33 @@ void ModulePhysics::Integrator_Euler()
 			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
 			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
 		}
+	}
+}
+
+void ModulePhysics::Integrator_VelocityVerlet()
+{
+	for (size_t i = 0; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(i)->active)
+		{
+			// Y
+			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000) + 0.5 * pObjects.at(i)->acceleration.y * pow(App->dt / 1000, 2);
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+
+			// X
+			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000) + 0.5 * pObjects.at(i)->acceleration.x * pow(App->dt / 1000, 2);
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
+		}
+	}
+}
+
+void ModulePhysics::Collision_NoAdjustment()
+{
+	for (size_t i = 1; i < pObjects.size(); i++)
+	{
+		
 	}
 }
 
