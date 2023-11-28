@@ -23,19 +23,27 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	Canon.x = 20;
-	Canon.y = 680;
+	Canon.y = 670;
 	Canon.w = 20;
 	Canon.h = 20;
 
 	fPoint initial_pos;
 	initial_pos.x = 30.0f;
-	initial_pos.y = 690.0f;
+	initial_pos.y = 680.0f;
 
-	bola = new Ball(initial_pos, 1, 10, 0, 45);
+	bola = new Ball(initial_pos, 1, 5, 0, 45);
 
 	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
 	bola->active = false;
+
+	SDL_Rect ground;
+	ground.x = 0;
+	ground.y = 700;
+	ground.w = 1024;
+	ground.h = 58;
+	App->physics->pObjects.push_back(new Ground(ground));
+
 	return ret;
 }
 
@@ -51,7 +59,6 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	Uint8 r = 255, g = 0, b = 0;
-	App->renderer->DrawLine(0, 700, 1024, 700, r, g, b);
 
 	SDL_Rect water{ 1024,700,300,58 };
 	App->renderer->DrawQuad(water, 0,0,255);

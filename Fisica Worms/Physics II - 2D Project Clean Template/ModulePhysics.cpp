@@ -19,10 +19,6 @@ bool ModulePhysics::Start()
 	fPoint initial_pos;
 	initial_pos.x = 30.0f;
 	initial_pos.y = 750.0f;
- 
-	
-
-
 
 	//// posar velocity x and y a la ball.h
 	//ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
@@ -40,6 +36,8 @@ update_status ModulePhysics::PreUpdate()
 	time = (App->dt / 1000);
 	Calculate_Gravity();
 	Integrator_Euler();
+	Collision_NoAdjustemnt();
+
 	/*ballg->velocityVec.y -= App->gravity * time;
 	ballg->position.y -= ballg->velocityVec.y;
 	// Crear funcions per a cada modo de launch
@@ -241,17 +239,6 @@ update_status ModulePhysics::PostUpdate()
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
-		/*ball->position.x = App->scene_intro->Canon.x + (App->scene_intro->Canon.w / 2);
-		ball->position.y = App->scene_intro->Canon.y + (App->scene_intro->Canon.h / 2);
-		ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-		ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-		ballg->position.x = 450;
-		ballg->position.y = 30;
-		ballg->velocityVec.x = 0;
-		ballg->velocityVec.y = 0;
-		launch = false;*/
-	}
 	/*if (launch == false) {
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 			ball->angle += 0.1f;
@@ -298,7 +285,8 @@ void ModulePhysics::Calculate_Gravity()
 {
 	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		if (pObjects.at(i)->active == true) {
+		if (pObjects.at(i)->active == true) 
+		{
 			pObjects.at(i)->force.y = pObjects.at(i)->mass * App->gravity;
 			pObjects.at(i)->force.x = 0;
 		}
@@ -309,7 +297,8 @@ void ModulePhysics::Integrator_Euler()
 {
 	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		if (pObjects.at(i)->active == true) {
+		if (pObjects.at(i)->active == true) 
+		{
 			// Y
 			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
 			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
@@ -323,11 +312,40 @@ void ModulePhysics::Integrator_Euler()
 	}
 }
 
+void ModulePhysics::Collision_Teleport()
+{
+	for (size_t i = 1; i < pObjects.size(); i++)
+	{
+		if ((pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y))
+		{
+			pObjects.at(0)->position.y = pObjects.at(1)->position.y - 11;
+
+			if (pObjects.at(i)->bounceCoef < 0.00)
+			{
+				pObjects.at(0)->force.y *= pObjects.at(i)->bounceCoef;
+				pObjects.at(i)->bounceCoef += 0.05;
+
+				pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
+				pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y;
+
+				pObjects.at(0)->velocityVec.x *= 0.75;
+			}
+			else
+			{
+				pObjects.at(0)->velocityVec.x *= 0.75;
+			}
+		}
+	}
+}
+
 void ModulePhysics::setUpVelocity()
 {
 	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		pObjects.at(i)->setUpVelocity();
+		if (pObjects.at(i)->active == true)
+		{
+			pObjects.at(i)->setUpVelocity();
+		}
 	}
 }
 

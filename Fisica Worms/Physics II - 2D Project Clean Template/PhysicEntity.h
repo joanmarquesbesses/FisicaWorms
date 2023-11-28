@@ -8,6 +8,13 @@ struct Force {
 	float y;
 };
 
+enum EntityType
+{
+	BALL,
+	GROUND,
+	NONE
+};
+
 class PhysicEntity
 {
 public:
@@ -26,6 +33,9 @@ public:
 	bool active = true;
 	float mass;
 	fPoint acceleration;
+	float bounceCoef;
 	SDL_Texture* texture = nullptr;
+
+	EntityType etype;
 };
 
