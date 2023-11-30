@@ -10,6 +10,7 @@ Ball::Ball(fPoint position, float mass, float velocity, int radius, float angle)
 	this->angle = angle;
 	this->radius = radius;
 	etype = BALL;
+	inrest = true;
 	r = 255;
 	g = 0;
 	b = 0;

@@ -82,21 +82,28 @@ update_status ModuleSceneIntro::Update()
 		Canon.x += canonX + 1;
 	}
 
-	if (bola->active == false) {
+	if (bola->inrest) 
+	{
 		bola->position.x = Canon.x + 10;
 		bola->position.y = Canon.y + 10;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && bola->inrest)
 	{
 		bola->active = true;
+		bola->inrest = false;
 		bola->setUpVelocity();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		bola->active = false;
+		bola->inrest = true;
 		App->physics->reset(bola);
+
+		for (size_t i = 1; i < App->physics->pObjects.size(); i++)
+			App->physics->pObjects.at(i)->bounceCoef = App->physics->pObjects.at(i)->initial_bounceCoef;
+		
 	}
 
 	/*if (!App->physics->launch) 

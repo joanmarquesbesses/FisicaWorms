@@ -34,6 +34,7 @@ public:
 	float mass;
 	fPoint acceleration;
 	float bounceCoef;
+	float initial_bounceCoef;
 	SDL_Texture* texture = nullptr;
 
 	EntityType etype;

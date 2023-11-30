@@ -47,6 +47,7 @@ public:
 	void Integrator_SympleticEuler();
 	void Integrator_VelocityVerlet();
 
+	void Bounce(size_t index);
 	void Collision_NoAdjustment();
 	void Collision_Teleport();
 	void Collision_Iterative();

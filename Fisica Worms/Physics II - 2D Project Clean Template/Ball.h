@@ -9,6 +9,8 @@ public:
 	void Draw();
 	void Move();
 	void Recenter();
+	
+	bool inrest;
 private:
 	int radius;
 	int r;

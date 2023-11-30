@@ -6,7 +6,8 @@ Ground::Ground(SDL_Rect area) : PhysicEntity(position, mass, velocity)
 	this->width = area.w;
 	this->height = area.h;
 	this->quad = area;
-	this->bounceCoef = -0.5;
+	this->bounceCoef = -0.25;
+	this->initial_bounceCoef = -0.25;
 	this->active = false;
 	etype = GROUND;
 	r = 255;

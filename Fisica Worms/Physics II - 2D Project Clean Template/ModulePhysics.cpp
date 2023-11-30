@@ -38,20 +38,17 @@ update_status ModulePhysics::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
 	{
-		switch (integrator)
+ 		switch (integrator)
 		{
 		case Integrators::EULER:
-			Integrator_Euler();
 			integrator = Integrators::SYMPLETIC;
 			break;
 
 		case Integrators::SYMPLETIC:
-			Integrator_SympleticEuler();
 			integrator = Integrators::VERLET;
 			break;
 
 		case Integrators::VERLET:
-			Integrator_VelocityVerlet();
 			integrator = Integrators::EULER;
 			break;
 
@@ -62,25 +59,21 @@ update_status ModulePhysics::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
 	{
-		switch (collision) 
+		switch (collision)
 		{
 		case Collisions::NO:
-			Collision_NoAdjustment();
 			collision = Collisions::TELEPORT;
 			break;
 
 		case Collisions::TELEPORT:
-			Collision_Teleport();
 			collision = Collisions::ITERATIVE;
 			break;
 
 		case Collisions::ITERATIVE:
-			Collision_Iterative();
 			collision = Collisions::RAYCAST;
 			break;
 
 		case Collisions::RAYCAST:
-			Collision_Raycast();
 			collision = Collisions::NO;
 			break;
 
@@ -89,167 +82,53 @@ update_status ModulePhysics::PreUpdate()
 		}
 	}
 
-	/*ballg->velocityVec.y -= App->gravity * time;
-	ballg->position.y -= ballg->velocityVec.y;
-	// Crear funcions per a cada modo de launch
-	switch (collision) {
-		case No:
-			if (ball->position.y < 700) {
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-					launch = true;
-					ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-					ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-				}
-				if (launch) {
-					if (mode1) {
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-						ball->velocityVec.y -= App->gravity * time;
-					}
-					else if (mode2) {
-						ball->velocityVec.y -= App->gravity * time;
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-					}
-					else if (mode3) {
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-						ball->position.y -= (pow(time, 2) * 10.0f * 0.5f);
-						ball->velocityVec.y -= App->gravity * (time);
-					}
-				}
-				else {
-					launch = false;
-				}
-			}
-			break;
-		case Teleport:
+	switch (integrator)
+	{
+	case Integrators::EULER:
+		Integrator_Euler();
+		break;
 
-			if (ball->position.y < 700) {
-				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-					launch = true;
-					ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-					ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-				}
-				if (launch) {
-					if (mode1) {
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-						ball->velocityVec.y -= App->gravity * time;
-					}
-					else if (mode2) {
-						ball->velocityVec.y -= App->gravity * time;
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-					}
-					else if (mode3) {
-						ball->position.x += ball->velocityVec.x;
-						ball->position.y -= ball->velocityVec.y;
-						ball->position.y += (pow(time, 2) * 10.0f * 0.5f);
-						ball->velocityVec.y -= App->gravity * (time);
-					}
-				}
-			}
-			else {
-				launch = false;
-				ball->position.y -= (ball->position.y - 700) + 10;
-			}
+	case Integrators::SYMPLETIC:
+		Integrator_SympleticEuler();
+		break;
 
-			break;
-		case Iteratively:
+	case Integrators::VERLET:
+		Integrator_VelocityVerlet();
+		break;
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				launch = true;
-				ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-				ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-			}
+	default:
+		break;
+	}
 
-			if (launch) {
-				if (mode1) {
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-					ball->velocityVec.y -= App->gravity * time;
-				}
-				else if (mode2) {
-					ball->velocityVec.y -= App->gravity * time;
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-				}
-				else if (mode3) {
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-					ball->position.y += (pow(time, 2) * 10.0f * 0.5f);
-					ball->velocityVec.y -= App->gravity * (time);
-				}
-			}
-
-			if (ball->position.y > 710) {
-				launch = false;
-				backtrack = true;
-			}
-
-			if (backtrack) {
-				if (mode1) {
-					ball->position.x -= ball->velocityVec.x;
-					ball->position.y += ball->velocityVec.y;
-					ball->velocityVec.y += App->gravity * time;
-				}
-				else if (mode2) {
-					ball->velocityVec.y += App->gravity * time;
-					ball->position.x -= ball->velocityVec.x;
-					ball->position.y += ball->velocityVec.y;
-				}
-				else if (mode3) {
-					ball->position.x -= ball->velocityVec.x;
-					ball->position.y += ball->velocityVec.y;
-					ball->position.y -= (pow(time, 2) * 10.0f * 0.5f);
-					ball->velocityVec.y += App->gravity * (time);
-				}
-				if (ball->position.y < 695) {
-					backtrack = false;
-				}
-			}
-			break;
-		case Raycast:
-			int previousx = 0, previousy = 0;
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				launch = true;
-				ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-				ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-			}
-
-			if (launch) {
-				if (mode1) {
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-					ball->velocityVec.y -= App->gravity * time;
-				}
-				else if (mode2) {
-					ball->velocityVec.y -= App->gravity * time;
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-				}
-				else if (mode3) {
-					ball->position.x += ball->velocityVec.x;
-					ball->position.y -= ball->velocityVec.y;
-					ball->position.y += (pow(time, 2) * 10.0f * 0.5f);
-					ball->velocityVec.y -= App->gravity * (time);
-				}
-				previousx = ball->position.x;
-				previousy = ball->position.y;
-			}
-
-			if (ball->position.y > 690) {
-				launch = false;
-
-			}
+	if (App->scene_intro->bola->active)
+	{
+		switch (collision)
+		{
+		case Collisions::NO:
+			Collision_NoAdjustment();
 			break;
 
-	}*/
+		case Collisions::TELEPORT:
+			Collision_Teleport();
+			break;
+
+		case Collisions::ITERATIVE:
+			Collision_Iterative();
+			break;
+
+		case Collisions::RAYCAST:
+			Collision_Raycast();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
-// 
+
 update_status ModulePhysics::PostUpdate()
 {
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -257,26 +136,6 @@ update_status ModulePhysics::PostUpdate()
 
 	if(!debug)
 		return UPDATE_CONTINUE;
-
-	/*if (launch == false) {
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
-			ball->angle += 0.1f;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-			ball->angle -= 0.1f;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			ball->velocity += 0.1f;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			if (ball->velocity > 0) {
-				ball->velocity -= 0.1f;
-			}
-		}
-	}*/
 
 	static char title[256];
 	/*sprintf_s(title, 256, "Velocity: %.2f Angle: %.2f VelocityX: %.2f VelocityY: %.2f, dt: %.2f", ball->velocity, ball->angle, ball->velocityVec.x, ball->velocityVec.y, App->dt);*/
@@ -294,7 +153,7 @@ bool ModulePhysics::CleanUp()
 
 	return true;
 }
-//
+
 //void ModulePhysics::setBallPointer(PhysicEntity* ball)
 //{
 //	this->ball = ball;
@@ -369,11 +228,33 @@ void ModulePhysics::Integrator_VelocityVerlet()
 	}
 }
 
+void ModulePhysics::Bounce(size_t i)
+{
+	if (pObjects.at(i)->bounceCoef < 0.00)
+	{
+		pObjects.at(0)->force.y *= pObjects.at(i)->bounceCoef;
+		pObjects.at(i)->bounceCoef += 0.05;
+
+		pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
+		pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y;
+	}
+	else
+	{
+		pObjects.at(0)->active = false;
+	}
+
+	pObjects.at(0)->velocityVec.x *= 0.75;
+
+}
+
 void ModulePhysics::Collision_NoAdjustment()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		
+		if ((pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y))
+		{
+			pObjects.at(0)->active = false;
+		}
 	}
 }
 
@@ -381,24 +262,39 @@ void ModulePhysics::Collision_Teleport()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if ((pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y))
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
 		{
 			pObjects.at(0)->position.y = pObjects.at(1)->position.y - 11;
 
-			if (pObjects.at(i)->bounceCoef < 0.00)
-			{
-				pObjects.at(0)->force.y *= pObjects.at(i)->bounceCoef;
-				pObjects.at(i)->bounceCoef += 0.05;
+			Bounce(i);
+		}
+	}
+}
 
-				pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
-				pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y;
-
-				pObjects.at(0)->velocityVec.x *= 0.75;
-			}
-			else
+void ModulePhysics::Collision_Iterative()
+{
+	for (size_t i = 1; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
+		{
+			while (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
 			{
-				pObjects.at(0)->velocityVec.x *= 0.75;
+				pObjects.at(0)->position.x -= pObjects.at(0)->velocityVec.x;
+				pObjects.at(0)->position.y -= pObjects.at(0)->velocityVec.y;
 			}
+
+			Bounce(i);
+		}
+	}
+}
+
+void ModulePhysics::Collision_Raycast()
+{
+	for (size_t i = 1; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
+		{
+			Bounce(i);
 		}
 	}
 }
