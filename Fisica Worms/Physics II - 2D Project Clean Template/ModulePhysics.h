@@ -40,7 +40,7 @@ public:
 
 
 	void Calculate_Gravity();
-	Force Calculate_Aerodynamics();
+	void Calculate_Aerodynamics();
 	Force Calculate_Hydrodinamics();
 
 	void Integrator_Euler();
@@ -67,6 +67,8 @@ public:
 	Timer flytime;
 	bool debug;
 	float velocityx, velocityy;
+
+	bool enableLift = true;
 
 	Collisions collision = Collisions::NO;
 	Integrators integrator = Integrators::EULER;

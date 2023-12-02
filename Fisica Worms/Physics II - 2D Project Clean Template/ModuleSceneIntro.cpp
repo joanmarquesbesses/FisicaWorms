@@ -31,7 +31,7 @@ bool ModuleSceneIntro::Start()
 	initial_pos.x = 30.0f;
 	initial_pos.y = 680.0f;
 
-	bola = new Ball(initial_pos, 1, 5, 0, 45);
+	bola = new Ball(initial_pos, 10, 10, 1, 70);
 
 	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
@@ -59,6 +59,17 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	Uint8 r = 255, g = 0, b = 0;
+
+	if (bola->inrest) {
+		bola->angle = atan((bola->position.y - App->input->GetMouseY()) / (App->input->GetMouseX() - bola->position.x)) * 180 / M_PI;
+		bola->velocity = PIXEL_TO_METERS(sqrt(pow(bola->position.y - App->input->GetMouseY(), 2) + pow(App->input->GetMouseX() - bola->position.x, 2)));
+	}
+
+	App->renderer->DrawLine(bola->position.x, bola->position.y, App->input->GetMouseX(), App->input->GetMouseY(), r, g, b);
+
+	LOG("%f", PIXEL_TO_METERS(sqrt(pow(bola->position.y - App->input->GetMouseY(),2) + pow(App->input->GetMouseX() - bola->position.x,2))));
+
+
 
 	SDL_Rect water{ 1024,700,300,58 };
 	App->renderer->DrawQuad(water, 0,0,255);
@@ -111,6 +122,5 @@ update_status ModuleSceneIntro::Update()
 		App->physics->ball->Recenter();
 	}*/
 
-	LOG("%d",Canon.x);
 	return UPDATE_CONTINUE;
 }

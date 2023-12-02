@@ -8,7 +8,7 @@
 Ball::Ball(fPoint position, float mass, float velocity, int radius, float angle) : PhysicEntity(position, mass, velocity)
 {
 	this->angle = angle;
-	this->radius = radius;
+	this->surface = radius;
 	etype = BALL;
 	inrest = true;
 	r = 255;

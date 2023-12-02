@@ -1,13 +1,49 @@
-﻿  ModulePhysics.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(220,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+﻿  ModuleSceneIntro.cpp
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(64,121): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(65,20): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(68,58): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(225,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(68,40): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(236,37): warning C4305: '+=': truncamiento de 'double' a 'float'
-  SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(89,20): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(93,24): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(98,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(99,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(775,1): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "PhysicEntity **std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::_Emplace_reallocate<_Ty>(PhysicEntity **const ,_Ty &&)" que se está compilando
+          with
+          [
+              _Ty=PhysicEntity *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "PhysicEntity **std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::_Emplace_reallocate<_Ty>(PhysicEntity **const ,_Ty &&)" que se está compilando
+          with
+          [
+              _Ty=PhysicEntity *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(748): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::emplace_back<PhysicEntity*>(PhysicEntity *&&)" que se está compilando
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(746): message : al compilar la función del miembro clase plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::push_back(_Ty &&)"
+          with
+          [
+              _Ty=PhysicEntity *
+          ]
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(36): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::push_back(_Ty &&)" que se está compilando
+          with
+          [
+              _Ty=PhysicEntity *
+          ]
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(60): message : Vea la referencia a la creación de una instancia de clase plantilla "std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>" que se está compilando
+  SDL Game.vcxproj -> C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe

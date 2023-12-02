@@ -16,16 +16,6 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
-	fPoint initial_pos;
-	initial_pos.x = 30.0f;
-	initial_pos.y = 750.0f;
-
-	//// posar velocity x and y a la ball.h
-	//ball->velocityVec.x = ball->velocity * cos(ball->angle * 3.1415 / 180);
-	//ball->velocityVec.y = ball->velocity * sin(ball->angle * 3.1415 / 180);
-
-	//ballg->velocityVec.x = ballg->velocity * cos(ballg->angle * 3.1415 / 180);
-	//ballg->velocityVec.y = ballg->velocity * sin(ballg->angle * 3.1415 / 180);
 
 	return true;
 }
@@ -35,6 +25,12 @@ update_status ModulePhysics::PreUpdate()
 {
 	time = (App->dt / 1000);
 	Calculate_Gravity();
+	Calculate_Aerodynamics();
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		enableLift = !enableLift;
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
 	{
@@ -138,7 +134,8 @@ update_status ModulePhysics::PostUpdate()
 		return UPDATE_CONTINUE;
 
 	static char title[256];
-	/*sprintf_s(title, 256, "Velocity: %.2f Angle: %.2f VelocityX: %.2f VelocityY: %.2f, dt: %.2f", ball->velocity, ball->angle, ball->velocityVec.x, ball->velocityVec.y, App->dt);*/
+	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f", 
+		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt);
 
 	App->window->SetTitle(title);
 
@@ -167,6 +164,25 @@ void ModulePhysics::Calculate_Gravity()
 		{
 			pObjects.at(i)->force.y = pObjects.at(i)->mass * App->gravity;
 			pObjects.at(i)->force.x = 0;
+		}
+	}
+}
+
+void ModulePhysics::Calculate_Aerodynamics()
+{
+	for (size_t i = 0; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(i)->active == true)
+		{
+			if (enableLift) {
+				float lift = (0.5 * (pObjects.at(i)->mass * App->gravity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+				if (pObjects.at(i)->velocityVec.y > 0.0f) {
+					pObjects.at(i)->force.y += lift;
+				}
+			}
+
+			// drag
+			float drag;
 		}
 	}
 }
