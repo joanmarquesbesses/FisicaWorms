@@ -69,10 +69,11 @@ public:
 	float velocityx, velocityy;
 
 	bool enableLift = true;
-	bool enableWater = true;
+	bool enableWater = false;
 
-	float airDesnsity = 1.3f;
-	float dragCoeficient = 0.01;
+	float airDensity = 1.3f;
+	float waterDensity = 1.0f;
+	float coeficient = 0.0f;
 
 	Collisions collision = Collisions::TELEPORT;
 	Integrators integrator = Integrators::EULER;

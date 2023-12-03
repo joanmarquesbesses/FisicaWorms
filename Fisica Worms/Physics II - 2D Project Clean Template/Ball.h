@@ -4,7 +4,7 @@
 class Ball : public PhysicEntity
 {
 public:
-	Ball(fPoint position, float mass, float velocity, int radius, float angle);
+	Ball(fPoint position, float mass, float velocity, float radius, float angle);
 	//poner en PhysicEntity con texturas
 	void Draw();
 	void Move();
@@ -12,7 +12,6 @@ public:
 	
 	bool inrest;
 private:
-	int radius;
 	int r;
 	int g;
 	int b;

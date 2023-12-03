@@ -26,7 +26,9 @@ public:
 	fPoint velocityVec;
 	fPoint position;
 	float angle;
+	float radius;
 	float surface;
+	float volumne;
 	virtual void Recenter();
 
 	void setUpVelocity();

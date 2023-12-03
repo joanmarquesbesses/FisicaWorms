@@ -5,12 +5,16 @@
 #include "ModuleTextures.h"
 #include "ModuleSceneIntro.h"
 
-Ball::Ball(fPoint position, float mass, float velocity, int radius, float angle) : PhysicEntity(position, mass, velocity)
+Ball::Ball(fPoint position, float mass, float velocity, float radius, float angle) : PhysicEntity(position, mass, velocity)
 {
 	this->angle = angle;
-	this->surface = radius;
+	this->surface = 4 * 3.14f * pow(PIXEL_TO_METERS(radius), 2);
+	this->volumne = 4/3 * 3.14f * pow(PIXEL_TO_METERS(radius), 3);
+	this->radius = PIXEL_TO_METERS(radius);
+	
 	etype = EntityType::BALL;
 	inrest = true;
+	
 	r = 255;
 	g = 0;
 	b = 0;

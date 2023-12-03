@@ -140,7 +140,7 @@ update_status ModulePhysics::PostUpdate()
 
 	static char title[256];
 	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f, airDen: %.2f", 
-		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDesnsity);
+		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDensity);
 
 	App->window->SetTitle(title);
 
@@ -180,18 +180,20 @@ void ModulePhysics::Calculate_Aerodynamics()
 		if (pObjects.at(i)->active == true)
 		{
 			if (enableLift) 
-			{
-				float lift = (0.5 * (airDesnsity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+			{		
+				// lift
+				float lift = (0.5 * (airDensity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.1)) * -1;
 				if (pObjects.at(i)->velocityVec.y > 0.0f) 
 				{
 					pObjects.at(i)->force.y += lift;
 				}
 			}
 
-			// drag
+			
 			if (enableLift) 
 			{
-				float drag = (0.5 * (airDesnsity *	METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.001));
+				// drag
+				float drag = (0.5 * (airDensity *	METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01));
 				if (pObjects.at(i)->velocityVec.y < 0.0f) 
 				{
 					pObjects.at(i)->force.y += drag;
@@ -209,15 +211,36 @@ void ModulePhysics::Calculate_Hydrodinamics()
 		{
 			if (enableWater)
 			{
-				float lift = (0.5 * (airDesnsity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+				// lift
+				float lift = (0.5 * (airDensity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.1)) * -1;
 				if (pObjects.at(i)->velocityVec.y > 0.0f)
 				{
 					pObjects.at(i)->force.y += lift;
 				}
 			}
+
+
+			if (enableWater)
+			{
+				// drag
+				float drag;
+				if (pObjects.at(i)->velocityVec.y < 0.0f)
+				{
+					pObjects.at(i)->force.y += drag;
+				}
+			}
+
+			if (enableWater)
+			{
+				// bouyancy
+				float bouyancy = waterDensity * App->gravity * pObjects.at(0)->volumne;
+				if (pObjects.at(i)->velocityVec.y > 0.0f)
+				{
+					pObjects.at(i)->force.y += bouyancy;
+				}
+			}
 		}
 	}
-
 }
 
 void ModulePhysics::Integrator_Euler()
@@ -293,14 +316,13 @@ void ModulePhysics::Bounce(size_t i)
 	}
 
 	pObjects.at(0)->velocityVec.x *= 0.75;
-
 }
 
 void ModulePhysics::Collision_NoAdjustment()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if ((pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y))
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->etype == EntityType::GROUND)
 		{
 			pObjects.at(0)->active = false;
 		}
@@ -311,7 +333,7 @@ void ModulePhysics::Collision_Teleport()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->etype == EntityType::GROUND)
 		{
 			pObjects.at(0)->position.y = pObjects.at(1)->position.y - 11;
 
@@ -324,7 +346,7 @@ void ModulePhysics::Collision_Iterative()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->etype == EntityType::GROUND)
 		{
 			while (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
 			{
@@ -341,7 +363,7 @@ void ModulePhysics::Collision_Raycast()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y)
+		if (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->etype == EntityType::GROUND)
 		{
 			Bounce(i);
 		}

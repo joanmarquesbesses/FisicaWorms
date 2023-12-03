@@ -1,138 +1,15 @@
-﻿  Application.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Application.cpp(110,17): warning C4244: 'inicializando': conversión de 'double' a 'uint32'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Application.cpp(121,17): warning C4244: 'inicializando': conversión de 'double' a 'uint32'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Application.cpp(124,22): warning C4244: '=': conversión de 'double' a 'uint32'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Application.cpp(125,8): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-  Ball.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(11,18): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(23,29): warning C4838: la conversión de 'TYPE' en 'int' requiere una conversión de restricción
+﻿  ModulePhysics.cpp
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(185,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(196,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(252,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(23,29): warning C4244: 'inicializando': conversión de 'TYPE' a 'int'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(257,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(23,45): warning C4838: la conversión de 'TYPE' en 'int' requiere una conversión de restricción
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(23,45): warning C4244: 'inicializando': conversión de 'TYPE' a 'int'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(34,47): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ball.cpp(35,47): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-  Terrain.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Terrain.cpp(5,25): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-  Main.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModuleAudio.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModuleInput.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModulePhysics.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(179,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(189,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(249,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(254,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(265,37): warning C4305: '+=': truncamiento de 'double' a 'float'
-  ModulePlayer.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModuleRender.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModuleSceneIntro.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(79,39): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(80,20): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(83,58): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(83,40): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(99,20): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(103,24): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(108,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(109,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vector(775,1): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "PhysicEntity **std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::_Emplace_reallocate<_Ty>(PhysicEntity **const ,_Ty &&)" que se está compilando
-          with
-          [
-              _Ty=PhysicEntity *
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "PhysicEntity **std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::_Emplace_reallocate<_Ty>(PhysicEntity **const ,_Ty &&)" que se está compilando
-          with
-          [
-              _Ty=PhysicEntity *
-          ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vector(748): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::emplace_back<PhysicEntity*>(PhysicEntity *&&)" que se está compilando
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vector(746): message : al compilar la función del miembro clase plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::push_back(_Ty &&)"
-          with
-          [
-              _Ty=PhysicEntity *
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(36): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>::push_back(_Ty &&)" que se está compilando
-          with
-          [
-              _Ty=PhysicEntity *
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(60): message : Vea la referencia a la creación de una instancia de clase plantilla "std::vector<PhysicEntity *,std::allocator<PhysicEntity *>>" que se está compilando
-  ModuleTextures.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  ModuleWindow.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-  PhysicEntity.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\PhysicEntity.cpp(29,27): warning C4244: '=': conversión de 'double' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\PhysicEntity.cpp(30,55): warning C4244: '=': conversión de 'double' a 'TYPE'; posible pérdida de datos
-          with
-          [
-              TYPE=float
-          ]
-  Generando código...
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(268,37): warning C4305: '+=': truncamiento de 'double' a 'float'
   SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe
