@@ -134,8 +134,8 @@ update_status ModulePhysics::PostUpdate()
 		return UPDATE_CONTINUE;
 
 	static char title[256];
-	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f", 
-		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt);
+	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f, airDen: %.2f", 
+		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDesnsity);
 
 	App->window->SetTitle(title);
 
@@ -175,14 +175,21 @@ void ModulePhysics::Calculate_Aerodynamics()
 		if (pObjects.at(i)->active == true)
 		{
 			if (enableLift) {
-				float lift = (0.5 * (pObjects.at(i)->mass * App->gravity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+				float lift = (0.5 * (airDesnsity * 
+					METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
 				if (pObjects.at(i)->velocityVec.y > 0.0f) {
 					pObjects.at(i)->force.y += lift;
 				}
 			}
 
 			// drag
-			float drag;
+			if (enableLift) {
+				float drag = (0.5 * (airDesnsity *
+					METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.001));
+				if (pObjects.at(i)->velocityVec.y < 0.0f) {
+					pObjects.at(i)->force.y += drag;
+				}
+			}
 		}
 	}
 }

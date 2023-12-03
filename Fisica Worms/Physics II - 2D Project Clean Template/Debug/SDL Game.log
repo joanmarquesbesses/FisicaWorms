@@ -1,24 +1,25 @@
 ﻿  ModuleSceneIntro.cpp
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(64,121): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(65,20): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(68,58): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(80,39): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(81,20): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(84,58): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(68,40): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(84,40): warning C4244: 'argumento': conversión de 'TYPE' a 'int'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(89,20): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(93,24): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(98,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(103,20): warning C4244: '-=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(107,24): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(112,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(99,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModuleSceneIntro.cpp(113,30): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float

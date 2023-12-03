@@ -70,6 +70,9 @@ public:
 
 	bool enableLift = true;
 
+	float airDesnsity = 1.3f;
+	float dragCoeficient = 0.01;
+
 	Collisions collision = Collisions::NO;
 	Integrators integrator = Integrators::EULER;
 };
