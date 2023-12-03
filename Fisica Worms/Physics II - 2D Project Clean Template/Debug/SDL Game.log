@@ -37,9 +37,9 @@ C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Proje
           [
               TYPE=float
           ]
-  Ground.cpp
+  Terrain.cpp
 C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.h(74,23): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Ground.cpp(5,25): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Terrain.cpp(5,25): warning C4244: '=': conversión de 'int' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float

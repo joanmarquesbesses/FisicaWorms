@@ -78,6 +78,11 @@ update_status ModulePhysics::PreUpdate()
 		enableLift = !enableLift;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		enableWater = !enableWater;
+	}
+
 	switch (integrator)
 	{
 	case Integrators::EULER:
@@ -198,6 +203,21 @@ void ModulePhysics::Calculate_Aerodynamics()
 
 void ModulePhysics::Calculate_Hydrodinamics()
 {
+	for (size_t i = 0; i < pObjects.size(); i++)
+	{
+		if (pObjects.at(i)->active == true)
+		{
+			if (enableWater)
+			{
+				float lift = (0.5 * (airDesnsity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+				if (pObjects.at(i)->velocityVec.y > 0.0f)
+				{
+					pObjects.at(i)->force.y += lift;
+				}
+			}
+		}
+	}
+
 }
 
 void ModulePhysics::Integrator_Euler()

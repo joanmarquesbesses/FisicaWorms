@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Ball.h"
-#include "Ground.h"
+#include "Terrain.h"
 
 #define PIXELS_PER_METER 50.0f // if touched change METER_PER_PIXEL too
 #define METER_PER_PIXEL 0.02f // this is 1 / PIXELS_PER_METER !
@@ -69,6 +69,7 @@ public:
 	float velocityx, velocityy;
 
 	bool enableLift = true;
+	bool enableWater = true;
 
 	float airDesnsity = 1.3f;
 	float dragCoeficient = 0.01;

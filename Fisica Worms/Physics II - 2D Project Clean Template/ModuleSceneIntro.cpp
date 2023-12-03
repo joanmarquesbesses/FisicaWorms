@@ -31,17 +31,17 @@ bool ModuleSceneIntro::Start()
 	initial_pos.x = 30.0f;
 	initial_pos.y = 680.0f;
 
-	bola = new Ball(initial_pos, 10, 1000, 20, 70);
+	bola = new Ball(initial_pos, 10, 10, 20, 70);
 
 	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
 	bola->active = false;
 
 	SDL_Rect ground{ 0,700,1024,58 };
-	App->physics->pObjects.push_back(new Ground(ground, EntityType::GROUND));
+	App->physics->pObjects.push_back(new Terrain(ground, EntityType::GROUND));
 
 	SDL_Rect water{ 1024,700,300,58 };
-	App->physics->pObjects.push_back(new Ground(water, EntityType::WATER));
+	App->physics->pObjects.push_back(new Terrain(water, EntityType::WATER));
 
 	return ret;
 }
