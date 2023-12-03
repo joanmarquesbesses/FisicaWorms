@@ -31,7 +31,7 @@ bool ModuleSceneIntro::Start()
 	initial_pos.x = 30.0f;
 	initial_pos.y = 680.0f;
 
-	bola = new Ball(initial_pos, 10, 10, 20, 70);
+	bola = new Ball(initial_pos, 10, 10, 40, 70);
 
 	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
@@ -59,24 +59,42 @@ update_status ModuleSceneIntro::Update()
 {
 	Uint8 r = 255, g = 0, b = 0;
 
+	int R = 0;
+	int D = 0;
+
 	if (bola->inrest) {
 		float X;
 		float Y;
 		if ((App->input->GetMouseX() - bola->position.x) > 0) {
 			X = (App->input->GetMouseX() - bola->position.x);
+			R = 0;
 		}
 		else {
 			X = (bola->position.x - App->input->GetMouseX());
+			R = 1;
 		}
 
 		if ((bola->position.y - App->input->GetMouseY()) > 0) {
 			Y = (bola->position.y - App->input->GetMouseY());
+			D = 0;
 		}
 		else {
 			Y = (App->input->GetMouseY() - bola->position.y);
+			D = 1;
 		}
 
-		bola->angle = atan((Y) / (X)) * 180 / M_PI;
+		if (R == 0 && D == 0) {
+			bola->angle = atan((Y) / (X)) * 180 / M_PI;
+		}
+		else if (R == 1 && D == 0) {
+			bola->angle = 180 - atan((Y) / (X)) * 180 / M_PI;
+		}
+		else if (R == 1 && D == 1) {
+			bola->angle = 180 + atan((Y) / (X)) * 180 / M_PI;
+		}
+		else if (R == 0 && D == 1) {
+			bola->angle = 360 - atan((Y) / (X)) * 180 / M_PI;
+		}
 		bola->velocity = PIXEL_TO_METERS(sqrt(pow(bola->position.y - App->input->GetMouseY(), 2) + pow(App->input->GetMouseX() - bola->position.x, 2)));
 	}
 

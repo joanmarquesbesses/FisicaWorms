@@ -205,42 +205,42 @@ void ModulePhysics::Calculate_Aerodynamics()
 
 void ModulePhysics::Calculate_Hydrodinamics()
 {
-	for (size_t i = 0; i < pObjects.size(); i++)
-	{
-		if (pObjects.at(i)->active == true)
-		{
-			if (enableWater)
-			{
-				// lift
-				float lift = (0.5 * (airDensity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.1)) * -1;
-				if (pObjects.at(i)->velocityVec.y > 0.0f)
-				{
-					pObjects.at(i)->force.y += lift;
-				}
-			}
+	//for (size_t i = 0; i < pObjects.size(); i++)
+	//{
+	//	if (pObjects.at(i)->active == true)
+	//	{
+	//		if (enableWater)
+	//		{
+	//			// lift
+	//			float lift = (0.5 * (airDensity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.1)) * -1;
+	//			if (pObjects.at(i)->velocityVec.y > 0.0f)
+	//			{
+	//				pObjects.at(i)->force.y += lift;
+	//			}
+	//		}
 
 
-			if (enableWater)
-			{
-				// drag
-				float drag;
-				if (pObjects.at(i)->velocityVec.y < 0.0f)
-				{
-					pObjects.at(i)->force.y += drag;
-				}
-			}
+	//		if (enableWater)
+	//		{
+	//			// drag
+	//			float drag;
+	//			if (pObjects.at(i)->velocityVec.y < 0.0f)
+	//			{
+	//				pObjects.at(i)->force.y += drag;
+	//			}
+	//		}
 
-			if (enableWater)
-			{
-				// bouyancy
-				float bouyancy = waterDensity * App->gravity * pObjects.at(0)->volumne;
-				if (pObjects.at(i)->velocityVec.y > 0.0f)
-				{
-					pObjects.at(i)->force.y += bouyancy;
-				}
-			}
-		}
-	}
+	//		if (enableWater)
+	//		{
+	//			// bouyancy
+	//			float bouyancy = waterDensity * App->gravity * pObjects.at(0)->volumne;
+	//			if (pObjects.at(i)->velocityVec.y > 0.0f)
+	//			{
+	//				pObjects.at(i)->force.y += bouyancy;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void ModulePhysics::Integrator_Euler()
