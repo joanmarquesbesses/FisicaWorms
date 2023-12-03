@@ -9,7 +9,7 @@ Ball::Ball(fPoint position, float mass, float velocity, int radius, float angle)
 {
 	this->angle = angle;
 	this->surface = radius;
-	etype = BALL;
+	etype = EntityType::BALL;
 	inrest = true;
 	r = 255;
 	g = 0;

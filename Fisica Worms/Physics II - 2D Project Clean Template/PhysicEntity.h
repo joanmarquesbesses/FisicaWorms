@@ -8,10 +8,11 @@ struct Force {
 	float y;
 };
 
-enum EntityType
+enum class EntityType
 {
 	BALL,
 	GROUND,
+	WATER,
 	NONE
 };
 

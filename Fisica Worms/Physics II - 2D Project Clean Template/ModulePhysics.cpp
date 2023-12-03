@@ -26,12 +26,7 @@ update_status ModulePhysics::PreUpdate()
 	time = (App->dt / 1000);
 	Calculate_Gravity();
 	Calculate_Aerodynamics();
-
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-	{
-		enableLift = !enableLift;
-	}
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
 	{
  		switch (integrator)
@@ -76,6 +71,11 @@ update_status ModulePhysics::PreUpdate()
 		default:
 			break;
 		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	{
+		enableLift = !enableLift;
 	}
 
 	switch (integrator)
@@ -174,24 +174,30 @@ void ModulePhysics::Calculate_Aerodynamics()
 	{
 		if (pObjects.at(i)->active == true)
 		{
-			if (enableLift) {
-				float lift = (0.5 * (airDesnsity * 
-					METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
-				if (pObjects.at(i)->velocityVec.y > 0.0f) {
+			if (enableLift) 
+			{
+				float lift = (0.5 * (airDesnsity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01)) * -1;
+				if (pObjects.at(i)->velocityVec.y > 0.0f) 
+				{
 					pObjects.at(i)->force.y += lift;
 				}
 			}
 
 			// drag
-			if (enableLift) {
-				float drag = (0.5 * (airDesnsity *
-					METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.001));
-				if (pObjects.at(i)->velocityVec.y < 0.0f) {
+			if (enableLift) 
+			{
+				float drag = (0.5 * (airDesnsity *	METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.001));
+				if (pObjects.at(i)->velocityVec.y < 0.0f) 
+				{
 					pObjects.at(i)->force.y += drag;
 				}
 			}
 		}
 	}
+}
+
+void ModulePhysics::Calculate_Hydrodinamics()
+{
 }
 
 void ModulePhysics::Integrator_Euler()

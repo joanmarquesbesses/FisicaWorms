@@ -9,7 +9,7 @@
 class Ground : public PhysicEntity
 {
 public:
-	Ground(SDL_Rect area);
+	Ground(SDL_Rect area, EntityType etype);
 	//poner en PhysicEntity con texturas
 	void Draw();
 

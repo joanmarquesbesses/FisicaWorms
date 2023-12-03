@@ -41,7 +41,7 @@ public:
 
 	void Calculate_Gravity();
 	void Calculate_Aerodynamics();
-	Force Calculate_Hydrodinamics();
+	void Calculate_Hydrodinamics();
 
 	void Integrator_Euler();
 	void Integrator_SympleticEuler();
@@ -73,6 +73,6 @@ public:
 	float airDesnsity = 1.3f;
 	float dragCoeficient = 0.01;
 
-	Collisions collision = Collisions::NO;
+	Collisions collision = Collisions::TELEPORT;
 	Integrators integrator = Integrators::EULER;
 };

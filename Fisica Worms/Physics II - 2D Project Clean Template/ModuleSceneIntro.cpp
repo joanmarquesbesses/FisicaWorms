@@ -31,18 +31,17 @@ bool ModuleSceneIntro::Start()
 	initial_pos.x = 30.0f;
 	initial_pos.y = 680.0f;
 
-	bola = new Ball(initial_pos, 10, 10, 20, 70);
+	bola = new Ball(initial_pos, 10, 1000, 20, 70);
 
 	App->physics->pObjects.push_back(bola);
 	App->physics->setUpVelocity();
 	bola->active = false;
 
-	SDL_Rect ground;
-	ground.x = 0;
-	ground.y = 700;
-	ground.w = 1024;
-	ground.h = 58;
-	App->physics->pObjects.push_back(new Ground(ground));
+	SDL_Rect ground{ 0,700,1024,58 };
+	App->physics->pObjects.push_back(new Ground(ground, EntityType::GROUND));
+
+	SDL_Rect water{ 1024,700,300,58 };
+	App->physics->pObjects.push_back(new Ground(water, EntityType::WATER));
 
 	return ret;
 }
@@ -84,9 +83,6 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->DrawLine(bola->position.x, bola->position.y, App->input->GetMouseX(), App->input->GetMouseY(), r, g, b);
 
 	LOG("%f", PIXEL_TO_METERS(sqrt(pow(bola->position.y - App->input->GetMouseY(),2) + pow(App->input->GetMouseX() - bola->position.x,2))));
-
-	SDL_Rect water{ 1024,700,300,58 };
-	App->renderer->DrawQuad(water, 0,0,255);
 
 	r = 125; g = 33; b = 129;
 	App->renderer->DrawQuad(Canon, r, g, b);
@@ -130,11 +126,6 @@ update_status ModuleSceneIntro::Update()
 			App->physics->pObjects.at(i)->bounceCoef = App->physics->pObjects.at(i)->initial_bounceCoef;
 		
 	}
-
-	/*if (!App->physics->launch) 
-	{
-		App->physics->ball->Recenter();
-	}*/
 
 	return UPDATE_CONTINUE;
 }
