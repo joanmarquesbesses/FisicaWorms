@@ -313,6 +313,7 @@ void ModulePhysics::Bounce(size_t i)
 	else
 	{
 		pObjects.at(0)->active = false;
+		App->scene_intro->resetball();
 	}
 
 	pObjects.at(0)->velocityVec.x *= 0.75;

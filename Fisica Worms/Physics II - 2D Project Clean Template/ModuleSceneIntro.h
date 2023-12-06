@@ -40,6 +40,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void resetball();
 
 public:
 
@@ -59,8 +60,13 @@ public:
 	SDL_Texture * texture;
 
 	SDL_Rect Canon;
+	SDL_Rect Canon2;
 
 	Ball* bola;
+
+	int actualShooter = 0;
+
+	bool hit = false;
 
 	float canonX;
 };

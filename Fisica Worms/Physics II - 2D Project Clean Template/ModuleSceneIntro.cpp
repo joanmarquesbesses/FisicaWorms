@@ -27,6 +27,11 @@ bool ModuleSceneIntro::Start()
 	Canon.w = 20;
 	Canon.h = 20;
 
+	Canon2.x = 1000;
+	Canon2.y = 670;
+	Canon2.w = 20;
+	Canon2.h = 20;
+
 	fPoint initial_pos;
 	initial_pos.x = 30.0f;
 	initial_pos.y = 680.0f;
@@ -52,6 +57,24 @@ bool ModuleSceneIntro::CleanUp()
 	LOG("Unloading Intro scene");
 
 	return true;
+}
+
+void ModuleSceneIntro::resetball()
+{
+	hit = false;
+
+	if (actualShooter == 0) {
+		actualShooter = 1;
+	}
+	else {
+		actualShooter = 0;
+	}
+	bola->active = false;
+	bola->inrest = true;
+	App->physics->reset(bola);
+
+	for (size_t i = 1; i < App->physics->pObjects.size(); i++)
+		App->physics->pObjects.at(i)->bounceCoef = App->physics->pObjects.at(i)->initial_bounceCoef;
 }
 
 // Update: draw background
@@ -100,10 +123,10 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->DrawLine(bola->position.x, bola->position.y, App->input->GetMouseX(), App->input->GetMouseY(), r, g, b);
 
-	LOG("%f", PIXEL_TO_METERS(sqrt(pow(bola->position.y - App->input->GetMouseY(),2) + pow(App->input->GetMouseX() - bola->position.x,2))));
-
-	r = 125; g = 33; b = 129;
+	r = 0; g = 33; b = 129;
 	App->renderer->DrawQuad(Canon, r, g, b);
+	r = 255; g = 0; b = 129;
+	App->renderer->DrawQuad(Canon2, r, g, b);
 
 	for (size_t i = 0; i < App->physics->pObjects.size(); i++)
 	{
@@ -114,17 +137,37 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) 
 	{
-		Canon.x -= canonX;
+		if (actualShooter == 0) {
+			if(Canon.x > 20)
+			Canon.x -= canonX;
+		}
+		else {
+			if (Canon2.x > 1000)
+			Canon2.x -= canonX;
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
 	{
-		Canon.x += canonX + 1;
+		if (actualShooter == 0) {
+			if (Canon.x < 150)
+			Canon.x += canonX + 1;
+		}
+		else {
+			if (Canon2.x < 1150)
+			Canon2.x += canonX + 1;
+		}
 	}
 
 	if (bola->inrest) 
 	{
-		bola->position.x = Canon.x + 10;
-		bola->position.y = Canon.y + 10;
+		if (actualShooter == 0) {
+			bola->position.x = Canon.x + 10;
+			bola->position.y = Canon.y + 10;
+		}
+		else {
+			bola->position.x = Canon2.x + 10;
+			bola->position.y = Canon2.y + 10;
+		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && bola->inrest)
@@ -136,13 +179,18 @@ update_status ModuleSceneIntro::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		bola->active = false;
-		bola->inrest = true;
-		App->physics->reset(bola);
+		resetball();
+	}
 
-		for (size_t i = 1; i < App->physics->pObjects.size(); i++)
-			App->physics->pObjects.at(i)->bounceCoef = App->physics->pObjects.at(i)->initial_bounceCoef;
-		
+	if (actualShooter == 0) {
+		if (SDL_HasIntersection(&bola->ballRect, &Canon2) && !hit) {
+			hit = true;
+		}
+	}
+	else {
+		if (SDL_HasIntersection(&bola->ballRect, &Canon) && !hit) {
+			hit = true;
+		}
 	}
 
 	return UPDATE_CONTINUE;

@@ -24,8 +24,11 @@ Ball::Ball(fPoint position, float mass, float velocity, float radius, float angl
 void Ball::Draw()
 {
 	//App->renderer->Blit(texture, position.x - 12, position.y - 11, NULL, 0, 0, 0, 0);
-	SDL_Rect water{ position.x - 12,position.y - 11,24,24 };
-	App->renderer->DrawQuad(water, 0, 0, 255);
+	ballRect.x = position.x - 12; 
+	ballRect.y = position.y - 11;
+	ballRect.w = 24;
+	ballRect.h = 24;
+	App->renderer->DrawQuad(ballRect, 0, 0, 255);
 }
 
 void Ball::Move()
