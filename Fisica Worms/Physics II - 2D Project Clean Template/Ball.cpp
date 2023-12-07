@@ -24,11 +24,11 @@ Ball::Ball(fPoint position, float mass, float velocity, float radius, float angl
 void Ball::Draw()
 {
 	//App->renderer->Blit(texture, position.x - 12, position.y - 11, NULL, 0, 0, 0, 0);
-	ballRect.x = position.x - 12; 
-	ballRect.y = position.y - 11;
-	ballRect.w = 24;
-	ballRect.h = 24;
-	App->renderer->DrawQuad(ballRect, 0, 0, 255);
+	objectRect.x = position.x - 12; 
+	objectRect.y = position.y - 11;
+	objectRect.w = 24;
+	objectRect.h = 24;
+	App->renderer->DrawQuad(objectRect, 0, 0, 255);
 }
 
 void Ball::Move()

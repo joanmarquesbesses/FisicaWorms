@@ -73,7 +73,7 @@ public:
 
 	float airDensity = 1.3f;
 	float waterDensity = 1.0f;
-	float coeficient = 0.0f;
+	float bCoef = 0.0f;
 
 	Collisions collision = Collisions::TELEPORT;
 	Integrators integrator = Integrators::EULER;

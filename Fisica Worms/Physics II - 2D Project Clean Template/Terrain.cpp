@@ -5,7 +5,7 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 	this->position.y = area.y;
 	this->width = area.w;
 	this->height = area.h;
-	this->quad = area;
+	this->objectRect = area;
 
 	this->bounceCoef = -0.25;
 	this->initial_bounceCoef = -0.25;
@@ -27,5 +27,5 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 
 void Terrain::Draw()
 {
-	App->renderer->DrawQuad(quad, r, g, b);
+	App->renderer->DrawQuad(objectRect, r, g, b);
 }

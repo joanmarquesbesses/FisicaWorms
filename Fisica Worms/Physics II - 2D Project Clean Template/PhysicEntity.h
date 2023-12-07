@@ -40,6 +40,7 @@ public:
 	float bounceCoef;
 	float initial_bounceCoef;
 	SDL_Texture* texture = nullptr;
+	SDL_Rect objectRect;
 
 	EntityType etype;
 };

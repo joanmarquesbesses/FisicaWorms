@@ -183,12 +183,12 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	if (actualShooter == 0) {
-		if (SDL_HasIntersection(&bola->ballRect, &Canon2) && !hit) {
+		if (SDL_HasIntersection(&bola->objectRect, &Canon2) && !hit) {
 			hit = true;
 		}
 	}
 	else {
-		if (SDL_HasIntersection(&bola->ballRect, &Canon) && !hit) {
+		if (SDL_HasIntersection(&bola->objectRect, &Canon) && !hit) {
 			hit = true;
 		}
 	}

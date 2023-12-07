@@ -9,7 +9,7 @@ public:
 	void Draw();
 	void Move();
 	void Recenter();
-	SDL_Rect ballRect;
+	
 	bool inrest;
 private:
 	int r;
