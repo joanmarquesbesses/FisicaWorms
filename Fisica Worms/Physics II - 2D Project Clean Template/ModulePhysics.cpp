@@ -9,9 +9,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 }
 
 // Destructor
-ModulePhysics::~ModulePhysics()
-{
-}
+ModulePhysics::~ModulePhysics() {}
 
 bool ModulePhysics::Start()
 {
@@ -27,10 +25,10 @@ update_status ModulePhysics::PreUpdate()
 	Calculate_Gravity();
 	Calculate_Aerodynamics();
 
-	/*if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(2)->objectRect))
+	if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(2)->objectRect))
 	{
 		Calculate_Hydrodinamics();
-	}	*/
+	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
@@ -187,7 +185,7 @@ void ModulePhysics::Calculate_Aerodynamics()
 			if (enableLift) 
 			{		
 				// lift
-				float lift = (0.5 * (airDensity * METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.1)) * -1;
+				float lift = (0.5 * (airDensity * pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 0.1)) * -1;
 				if (pObjects.at(i)->velocityVec.y > 0.0f) 
 				{
 					pObjects.at(i)->force.y += lift;
@@ -198,7 +196,7 @@ void ModulePhysics::Calculate_Aerodynamics()
 			if (enableLift) 
 			{
 				// drag
-				float drag = (0.5 * (airDensity *	METERS_TO_PIXELS(pow(pObjects.at(i)->velocityVec.y, 2)) * pObjects.at(i)->surface * 0.01));
+				float drag = (0.5 * (airDensity *	pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 0.01));
 				if (pObjects.at(i)->velocityVec.y < 0.0f) 
 				{
 					pObjects.at(i)->force.y += drag;
@@ -220,7 +218,7 @@ void ModulePhysics::Calculate_Hydrodinamics()
 				float drag = bCoef * pObjects.at(0)->velocityVec.y;
 				if (pObjects.at(i)->velocityVec.y < 0.0f)
 				{
-					pObjects.at(i)->force.y -= drag;
+					pObjects.at(i)->force.y += drag;
 				}
 			}
 
@@ -230,7 +228,7 @@ void ModulePhysics::Calculate_Hydrodinamics()
 				float bouyancy = waterDensity * App->gravity * pObjects.at(0)->volumne;
 				if (pObjects.at(i)->velocityVec.y > 0.0f)
 				{
-					pObjects.at(i)->force.y += bouyancy;
+					pObjects.at(i)->force.y -= bouyancy;
 				}
 			}
 		}

@@ -28,7 +28,7 @@ void Ball::Draw()
 	objectRect.y = position.y - 11;
 	objectRect.w = 24;
 	objectRect.h = 24;
-	App->renderer->DrawQuad(objectRect, 0, 0, 255);
+	App->renderer->DrawQuad(objectRect, 0, 255, 255);
 }
 
 void Ball::Move()

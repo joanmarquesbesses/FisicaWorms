@@ -1,15 +1,15 @@
 ﻿  ModulePhysics.cpp
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(190,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(201,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(286,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(188,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(199,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(284,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(291,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(289,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
           with
           [
               TYPE=float
           ]
-C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(302,37): warning C4305: '+=': truncamiento de 'double' a 'float'
+C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(300,37): warning C4305: '+=': truncamiento de 'double' a 'float'
   SDL Game.vcxproj -> C:\Users\Usuario\Documents\GitHub\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe
