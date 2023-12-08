@@ -214,9 +214,9 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->DrawLine(bola->position.x, bola->position.y, App->input->GetMouseX(), App->input->GetMouseY(), r, g, b);
 
 	r = 0; g = 33; b = 129;
-	App->renderer->DrawQuad(Canon, r, g, b);
+	App->renderer->DrawQuad(Canon, r, g, b, false);
 	r = 255; g = 0; b = 129;
-	App->renderer->DrawQuad(Canon2, r, g, b);
+	App->renderer->DrawQuad(Canon2, r, g, b, false);
 
 	for (size_t i = 0; i < App->physics->pObjects.size(); i++)
 	{
