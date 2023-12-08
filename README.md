@@ -33,4 +33,6 @@ Controls:
    F3: Collision type
 
    F4: Enable/Disable Air drag/lift
+
+   F5: Enable/Disable Hidrodynamics
    
