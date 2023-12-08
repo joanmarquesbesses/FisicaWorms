@@ -141,14 +141,12 @@ if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 update_status ModulePhysics::PostUpdate()
 {
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
-
-	if(!debug)
-		return UPDATE_CONTINUE;
-
+		App->scene_intro->debugMode = !App->scene_intro->debugMode;
+	
 	static char title[256];
-	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f, airDen: %.2f, integrator: %d, collision: %d", 
-		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDensity, integrator, collision);
+	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, airDen: %.2f, integrator: %d, collision: %d, debug: %d, dt: %.2f", 
+		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, airDensity,
+		integrator, collision, App->scene_intro->debugMode ,App->dt);
 
 	App->window->SetTitle(title);
 

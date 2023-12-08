@@ -22,15 +22,10 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 	{
 		r = 0;	g = 0;	b = 255;
 	}
-	else if (this->etype == EntityType::ROOF)
-	{
-		r = 0; g = 255; b = 0;
-	}
 
-	texture; //= App->textures->Load("../Assets/bala.png");
 }
 
 void Terrain::Draw()
 {
-	App->renderer->DrawQuad(objectRect, r, g, b);
+	App->renderer->DrawQuad(objectRect, r, g, b, App->scene_intro->debugMode);
 }

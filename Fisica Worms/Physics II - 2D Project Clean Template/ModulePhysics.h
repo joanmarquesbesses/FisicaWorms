@@ -38,12 +38,12 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	//	
+	//	Calculate Forces
 	void Calculate_Gravity();
 	void Calculate_Aerodynamics();
 	void Calculate_Hydrodinamics();
 
-	// Integrators
+	// Integrate objects
 	void Integrator_Euler();
 	void Integrator_SympleticEuler();
 	void Integrator_VelocityVerlet();
@@ -53,7 +53,7 @@ public:
 	void BounceWall();
 	void BounceRoof();
 
-	// Collisions
+	// Collisions with Terrain
 	void Collision_NoAdjustment();
 	void Collision_Teleport();
 	void Collision_Iterative();

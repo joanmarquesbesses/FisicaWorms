@@ -57,10 +57,28 @@ public:
 	p2DynArray<Light> lights;
 
 	uint player_lose_fx;
-	SDL_Texture * texture;
+	SDL_Texture * textureBackground;
+	SDL_Texture * textureC1;
+	SDL_Texture * textureC2;
+
+	bool c1flip = true;
+	bool c2flip = false;
 
 	SDL_Rect Canon;
+	int C1Lives = 3;
+	Animation* C1currentAnimation = nullptr;
+	Animation C1idleAnimation;
+	Animation C1walkAnimation;
+	Animation C1attackAnimation;
+
 	SDL_Rect Canon2;
+	int C2Lives = 3;
+	Animation* C2currentAnimation = nullptr;
+	Animation C2idleAnimation;
+	Animation C2walkAnimation;
+	Animation C2attackAnimation;
+
+	int debugMode = 0;
 
 	Ball* bola;
 
@@ -69,4 +87,7 @@ public:
 	bool hit = false;
 
 	float canonX;
+
+	SDL_Texture* win1;
+	SDL_Texture* win2;
 };

@@ -13,7 +13,6 @@ enum class EntityType
 	BALL,
 	GROUND,
 	WATER,
-	ROOF,
 	NONE
 };
 
