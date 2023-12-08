@@ -1,27 +1,36 @@
-# FisicaWorms
+# WORMS
 
 Collaborators:
-- Joan Marques Besses - https://github.com/joanmarquesbesses
-- Pol Celaya Bassas - https://github.com/pcelaya
-- Salvador Bernades Iglesias - https://github.com/SalvaBernades
 
-Github Link:
-- [https://github.com/joanmarquesbesses/FisicaWorms](https://github.com/joanmarquesbesses/FisicaWorms)
+- Joan Marquès - https://github.com/joanmarquesbesses
+- Salvador Bernades - https://github.com/SalvaBernades
+- Pol Celaya - https://github.com/pcelaya
 
-Gameplay:
-
-- You have 3 lives and when you hit your enemy he loses one. The first to defeat the enemy wins
+Project GitHub Link: https://github.com/joanmarquesbesses/FisicaWorms
 
 Controls:
- 
- - A & D: Move right and left
- 
- - MOUSE: With the mouse you can put direction and power
 
- - SPACE: Shoot
-  
- - Others:
+- Movement
 
-   F1: show/hide colliders
+    A: Move Right
 
-  
+    D: Move Left
+
+    SPACE: Shoot
+
+    R: Return the ball
+
+    Right/Left Arrow: Change velocity of the ball
+
+    Um/Down Arroe: Change angle of the cannon
+
+- Others:
+
+   F1: DebugMode
+
+   F2: Change Integrator
+
+   F3: Collision type
+
+   F4: Enable/Disable Air drag/lift
+   
