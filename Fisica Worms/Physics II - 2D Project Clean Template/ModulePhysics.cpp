@@ -389,18 +389,56 @@ void ModulePhysics::Collision_Iterative()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			while (((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h/2 + 1) > pObjects.at(1)->position.y) && pObjects.at(i)->bounceCoef > 0.00)
-			{
-				if (pObjects.at(0)->velocityVec.x > 0) {
-					pObjects.at(0)->position.x++;
+			if ((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h) <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h)) {
+				if ((pObjects.at(0)->position.x + pObjects.at(0)->objectRect.w) <= (pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w)) {
+					if (pObjects.at(0)->position.x >= pObjects.at(i)->position.x) {
+						if (pObjects.at(0)->position.y <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h)) {
+							while (((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h / 2 + 1) > pObjects.at(i)->position.y) && pObjects.at(i)->bounceCoef > 0.00)
+							{
+								if (pObjects.at(0)->velocityVec.x > 0) {
+									pObjects.at(0)->position.x++;
+								}
+								else {
+									pObjects.at(0)->position.x--;
+								}
+								pObjects.at(0)->position.y--;
+							}
+
+							BounceGround(i);
+							break;
+						}
+					}
 				}
-				else {
-					pObjects.at(0)->position.x--;
-				}
-				pObjects.at(0)->position.y --;
 			}
 
-			BounceGround(i);
+			if ((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h) >= pObjects.at(i)->objectRect.y &&
+				pObjects.at(0)->position.y <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h) &&
+				(pObjects.at(0)->position.x + pObjects.at(0)->objectRect.w) >= (pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w) ||
+				(pObjects.at(0)->position.x <= pObjects.at(i)->position.x))
+			{
+				while ((pObjects.at(0)->position.x - 12) < (pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w))
+				{
+					pObjects.at(0)->position.x++;
+				}
+
+				BounceWall();
+				break;
+			}
+			else {
+				while ((pObjects.at(0)->position.y - 12) < (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h))
+				{
+					if (pObjects.at(0)->velocityVec.x > 0) {
+						pObjects.at(0)->position.x++;
+					}
+					else {
+						pObjects.at(0)->position.x--;
+					}
+					pObjects.at(0)->position.y++;
+				}
+
+				BounceRoof();
+				break;
+			}
 		}
 	}
 }
