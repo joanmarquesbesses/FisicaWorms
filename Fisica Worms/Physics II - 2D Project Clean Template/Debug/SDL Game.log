@@ -1,1 +1,15 @@
-﻿  SDL Game.vcxproj -> C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe
+﻿  ModulePhysics.cpp
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(188,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(199,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(284,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(289,164): warning C4244: '+=': conversión de 'double' a 'TYPE'; posible pérdida de datos
+          with
+          [
+              TYPE=float
+          ]
+C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\ModulePhysics.cpp(304,37): warning C4305: '-=': truncamiento de 'double' a 'float'
+  SDL Game.vcxproj -> C:\Users\CLEVO\Desktop\joan\FisicaWorms\Fisica Worms\Physics II - 2D Project Clean Template\Debug\Physics 2.exe

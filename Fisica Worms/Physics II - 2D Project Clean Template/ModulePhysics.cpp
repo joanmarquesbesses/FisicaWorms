@@ -296,7 +296,7 @@ void ModulePhysics::Bounce(size_t i)
 {
 	if (pObjects.at(i)->bounceCoef > 0.00)
 	{
-		pObjects.at(0)->force.y -= ((pObjects.at(0)->velocityVec.y * pObjects.at(i)->bounceCoef) / time) * pObjects.at(0)->mass;
+		pObjects.at(0)->force.y -= ((pObjects.at(0)->velocityVec.y) / time) * pObjects.at(0)->mass * pObjects.at(i)->bounceCoef;
 		pObjects.at(0)->velocityVec.x *= pObjects.at(i)->initial_bounceCoef;
 
 		pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
@@ -327,7 +327,7 @@ void ModulePhysics::Collision_Teleport()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			pObjects.at(0)->position.y = pObjects.at(1)->position.y - pObjects.at(0)->objectRect.h - 1;
+			pObjects.at(0)->position.y = pObjects.at(1)->position.y - pObjects.at(0)->objectRect.h/2 - 1;
 
 			Bounce(i);
 		}
@@ -340,7 +340,7 @@ void ModulePhysics::Collision_Iterative()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			while (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
+			while (pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h/2 + 1 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
 			{
 				pObjects.at(0)->position.x -= pObjects.at(0)->velocityVec.x;
 				pObjects.at(0)->position.y -= pObjects.at(0)->velocityVec.y;
