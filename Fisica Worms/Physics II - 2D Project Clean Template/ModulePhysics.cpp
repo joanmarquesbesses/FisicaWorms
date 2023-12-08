@@ -25,11 +25,11 @@ update_status ModulePhysics::PreUpdate()
 	Calculate_Gravity();
 	Calculate_Aerodynamics();
 
-	if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(2)->objectRect))
+	/*if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(2)->objectRect))
 	{
 		Calculate_Hydrodinamics();
 	}
-	
+	*/
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
  		switch (integrator)
@@ -294,21 +294,20 @@ void ModulePhysics::Integrator_VelocityVerlet()
 
 void ModulePhysics::Bounce(size_t i)
 {
-	if (pObjects.at(i)->bounceCoef < 0.00)
+	if (pObjects.at(i)->bounceCoef > 0.00)
 	{
-		pObjects.at(0)->force.y *= pObjects.at(i)->bounceCoef;
-		pObjects.at(i)->bounceCoef += 0.05;
+		pObjects.at(0)->force.y -= ((pObjects.at(0)->velocityVec.y * pObjects.at(i)->bounceCoef) / time) * pObjects.at(0)->mass;
+		pObjects.at(0)->velocityVec.x *= pObjects.at(i)->initial_bounceCoef;
 
 		pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
-		pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y;
+		pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y * time;
+		pObjects.at(i)->bounceCoef -= 0.15;
 	}
 	else
 	{
 		pObjects.at(0)->active = false;
 		App->scene_intro->resetball();
 	}
-
-	pObjects.at(0)->velocityVec.x *= 0.75;
 }
 
 void ModulePhysics::Collision_NoAdjustment()
@@ -328,7 +327,7 @@ void ModulePhysics::Collision_Teleport()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			pObjects.at(0)->position.y = pObjects.at(1)->position.y - 11;
+			pObjects.at(0)->position.y = pObjects.at(1)->position.y - pObjects.at(0)->objectRect.h - 1;
 
 			Bounce(i);
 		}
@@ -339,7 +338,7 @@ void ModulePhysics::Collision_Iterative()
 {
 	for (size_t i = 1; i < pObjects.size(); i++)
 	{
-		if (!SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
+		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
 			while (pObjects.at(0)->position.y + 11 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
 			{

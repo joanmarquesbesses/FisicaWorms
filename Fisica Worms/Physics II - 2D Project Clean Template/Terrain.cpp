@@ -7,8 +7,8 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 	this->height = area.h;
 	this->objectRect = area;
 
-	this->bounceCoef = -0.25;
-	this->initial_bounceCoef = -0.25;
+	this->bounceCoef = 0.75;
+	this->initial_bounceCoef = 0.75;
 
 	this->active = false;
 	this->etype = etype;
