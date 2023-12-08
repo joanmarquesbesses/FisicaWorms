@@ -38,26 +38,32 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-
+	//	
 	void Calculate_Gravity();
 	void Calculate_Aerodynamics();
 	void Calculate_Hydrodinamics();
 
+	// Integrators
 	void Integrator_Euler();
 	void Integrator_SympleticEuler();
 	void Integrator_VelocityVerlet();
 
-	void Bounce(size_t index);
+	// Bouncing the Ball
+	void BounceGround(size_t index);
+	void BounceWall();
+	void BounceRoof();
+
+	// Collisions
 	void Collision_NoAdjustment();
 	void Collision_Teleport();
 	void Collision_Iterative();
 	void Collision_Raycast();
 
 	void setUpVelocity();
-
 	void reset(PhysicEntity* pObjects);
 
 	std::vector <PhysicEntity*> pObjects;
+	
 public:
 	bool time1 = true;
 	bool time2 = false;
@@ -69,11 +75,11 @@ public:
 	float velocityx, velocityy;
 
 	bool enableLift = true;
-	bool enableWater = false;
+	bool enableWater = true;
 
 	float airDensity = 1.3f;
 	float waterDensity = 1.0f;
-	float bCoef = 1.0f;
+	float bCoef = 20.0f;
 
 	Collisions collision = Collisions::TELEPORT;
 	Integrators integrator = Integrators::EULER;

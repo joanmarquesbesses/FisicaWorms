@@ -6,7 +6,6 @@
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	graphics = NULL;
-	texture = App->textures->Load("../Assets/canon.png");
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -19,16 +18,16 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
+	texture = App->textures->Load("../Assets/des_bg.png");
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	Canon.x = 20;
-	Canon.y = 670;
+	Canon.x = 200;
+	Canon.y = 850;
 	Canon.w = 20;
 	Canon.h = 20;
 
-	Canon2.x = 1000;
-	Canon2.y = 670;
+	Canon2.x = 1300;
+	Canon2.y = 850;
 	Canon2.w = 20;
 	Canon2.h = 20;
 
@@ -42,11 +41,23 @@ bool ModuleSceneIntro::Start()
 	App->physics->setUpVelocity();
 	bola->active = false;
 
-	SDL_Rect ground{ 0,700,1024,58 };
-	App->physics->pObjects.push_back(new Terrain(ground, EntityType::GROUND));
+	SDL_Rect ground1{ 0,950,600,100 };
+	App->physics->pObjects.push_back(new Terrain(ground1, EntityType::GROUND));
 
-	SDL_Rect water{ 1024,700,300,58 };
-	App->physics->pObjects.push_back(new Terrain(water, EntityType::WATER));
+	SDL_Rect ground2{ 1150,950,800,100 };
+	App->physics->pObjects.push_back(new Terrain(ground2, EntityType::GROUND));
+
+	SDL_Rect ground3{ 0,250,750,100 };
+	App->physics->pObjects.push_back(new Terrain(ground3, EntityType::GROUND));
+
+	SDL_Rect cascada{ 800,500,200,600 };
+	App->physics->pObjects.push_back(new Terrain(cascada, EntityType::WATER));
+
+	SDL_Rect charco{ 600,950,550,100 };
+	App->physics->pObjects.push_back(new Terrain(charco, EntityType::WATER));
+
+	SDL_Rect wall{ 0,270,100,800 };
+	App->physics->pObjects.push_back(new Terrain(wall, EntityType::GROUND));
 
 	return ret;
 }
@@ -81,7 +92,7 @@ void ModuleSceneIntro::resetball()
 update_status ModuleSceneIntro::Update()
 {
 	Uint8 r = 255, g = 0, b = 0;
-
+	App->renderer->Blit(texture, 0, 0, NULL);
 	int R = 0;
 	int D = 0;
 
@@ -192,6 +203,8 @@ update_status ModuleSceneIntro::Update()
 			hit = true;
 		}
 	}
+
+	
 
 	return UPDATE_CONTINUE;
 }

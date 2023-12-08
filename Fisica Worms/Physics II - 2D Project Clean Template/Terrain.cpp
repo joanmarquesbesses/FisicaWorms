@@ -3,6 +3,7 @@
 Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass, velocity)
 {
 	this->position.y = area.y;
+	this->position.x = area.x;
 	this->width = area.w;
 	this->height = area.h;
 	this->objectRect = area;
@@ -20,6 +21,10 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 	else if (this->etype == EntityType::WATER)
 	{
 		r = 0;	g = 0;	b = 255;
+	}
+	else if (this->etype == EntityType::ROOF)
+	{
+		r = 0; g = 255; b = 0;
 	}
 
 	texture; //= App->textures->Load("../Assets/bala.png");

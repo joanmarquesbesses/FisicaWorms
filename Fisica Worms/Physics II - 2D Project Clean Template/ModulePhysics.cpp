@@ -23,35 +23,19 @@ update_status ModulePhysics::PreUpdate()
 {
 	time = (App->dt / 1000);
 	Calculate_Gravity();
-	Calculate_Aerodynamics();
-
-	/*if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(2)->objectRect))
+	
+	for (size_t i = 0; i < pObjects.size(); i++)
 	{
-		Calculate_Hydrodinamics();
-	}
-	*/
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
- 		switch (integrator)
+		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::WATER)
 		{
-		case Integrators::EULER:
-			integrator = Integrators::SYMPLETIC;
-			break;
-
-		case Integrators::SYMPLETIC:
-			integrator = Integrators::VERLET;
-			break;
-
-		case Integrators::VERLET:
-			integrator = Integrators::EULER;
-			break;
-
-		default:
-			break;
+			Calculate_Hydrodinamics();
+		}
+		else {
+			Calculate_Aerodynamics();
 		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
+if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) 
 	{
 		switch (collision)
 		{
@@ -69,6 +53,27 @@ update_status ModulePhysics::PreUpdate()
 
 		case Collisions::RAYCAST:
 			collision = Collisions::NO;
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+ 		switch (integrator)
+		{
+		case Integrators::EULER:
+			integrator = Integrators::SYMPLETIC;
+			break;
+
+		case Integrators::SYMPLETIC:
+			integrator = Integrators::VERLET;
+			break;
+
+		case Integrators::VERLET:
+			integrator = Integrators::EULER;
 			break;
 
 		default:
@@ -142,8 +147,8 @@ update_status ModulePhysics::PostUpdate()
 		return UPDATE_CONTINUE;
 
 	static char title[256];
-	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f, airDen: %.2f", 
-		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDensity);
+	sprintf_s(title, 256, "Initial Vel: %.2f Angle: %.2f VelX: %.2f VelY: %.2f, dt: %.2f, airDen: %.2f, integrator: %d, collision: %d", 
+		pObjects.at(0)->velocity, pObjects.at(0)->angle, pObjects.at(0)->velocityVec.x, pObjects.at(0)->velocityVec.y, App->dt, airDensity, integrator, collision);
 
 	App->window->SetTitle(title);
 
@@ -158,11 +163,6 @@ bool ModulePhysics::CleanUp()
 
 	return true;
 }
-
-//void ModulePhysics::setBallPointer(PhysicEntity* ball)
-//{
-//	this->ball = ball;
-//}
 
 void ModulePhysics::Calculate_Gravity()
 {
@@ -185,10 +185,11 @@ void ModulePhysics::Calculate_Aerodynamics()
 			if (enableLift) 
 			{		
 				// lift
-				float lift = (0.5 * (airDensity * pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 0.1)) * -1;
+				float lift = (0.5 * (airDensity * pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 2));
+				
 				if (pObjects.at(i)->velocityVec.y > 0.0f) 
 				{
-					pObjects.at(i)->force.y += lift;
+					pObjects.at(i)->force.y -= lift;
 				}
 			}
 
@@ -196,10 +197,18 @@ void ModulePhysics::Calculate_Aerodynamics()
 			if (enableLift) 
 			{
 				// drag
-				float drag = (0.5 * (airDensity *	pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 0.01));
+				float dragy = (0.5 * (airDensity *	pow(pObjects.at(i)->velocityVec.y, 2) * pObjects.at(i)->surface * 0.2));
+				float dragx = (0.5 * (airDensity * pow(pObjects.at(i)->velocityVec.x, 2) * pObjects.at(i)->surface * 0.2));
 				if (pObjects.at(i)->velocityVec.y < 0.0f) 
 				{
-					pObjects.at(i)->force.y += drag;
+					pObjects.at(i)->force.y += dragy;
+					if (pObjects.at(i)->velocityVec.x > 0.0f)
+					{
+						pObjects.at(i)->force.x -= dragx;
+					}
+					else {
+						pObjects.at(i)->force.x += dragx;
+					}
 				}
 			}
 		}
@@ -215,21 +224,25 @@ void ModulePhysics::Calculate_Hydrodinamics()
 			if (enableWater)
 			{
 				// drag
-				float drag = bCoef * pObjects.at(0)->velocityVec.y;
-				if (pObjects.at(i)->velocityVec.y < 0.0f)
+				float dragx = bCoef * pObjects.at(0)->velocityVec.x;
+				float dragy = bCoef * pObjects.at(0)->velocityVec.y;
+
+				if (pObjects.at(0)->velocityVec.y > 0.0f)
 				{
-					pObjects.at(i)->force.y += drag;
+					pObjects.at(i)->force.y += dragy;
 				}
+				else {
+					pObjects.at(i)->force.y -= dragy;
+				}
+
+				pObjects.at(i)->force.x -= dragx;
 			}
 
 			if (enableWater)
 			{
 				// bouyancy
 				float bouyancy = waterDensity * App->gravity * pObjects.at(0)->volumne;
-				if (pObjects.at(i)->velocityVec.y > 0.0f)
-				{
-					pObjects.at(i)->force.y -= bouyancy;
-				}
+				pObjects.at(i)->force.y -= bouyancy;
 			}
 		}
 	}
@@ -243,13 +256,13 @@ void ModulePhysics::Integrator_Euler()
 		{
 			// Y
 			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
-			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
-			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * time;
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * time;
 
 			// X
 			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
-			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
-			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * time;
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * time;
 		}
 	}
 }
@@ -262,13 +275,13 @@ void ModulePhysics::Integrator_SympleticEuler()
 		{
 			// Y
 			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
-			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
-			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000);
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * time;
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * time;
 
 			// X
 			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
-			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
-			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000);
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * time;
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * time;
 		}
 	}
 }
@@ -281,18 +294,18 @@ void ModulePhysics::Integrator_VelocityVerlet()
 		{
 			// Y
 			pObjects.at(i)->acceleration.y = (pObjects.at(i)->force.y / pObjects.at(i)->mass);
-			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * (App->dt / 1000) + 0.5 * pObjects.at(i)->acceleration.y * pow(App->dt / 1000, 2);
-			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * (App->dt / 1000);
+			pObjects.at(i)->position.y += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.y) * time + 0.5 * pObjects.at(i)->acceleration.y * pow(time, 2);
+			pObjects.at(i)->velocityVec.y += pObjects.at(i)->acceleration.y * time;
 
 			// X
 			pObjects.at(i)->acceleration.x = (pObjects.at(i)->force.x / pObjects.at(i)->mass);
-			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * (App->dt / 1000) + 0.5 * pObjects.at(i)->acceleration.x * pow(App->dt / 1000, 2);
-			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * (App->dt / 1000);
+			pObjects.at(i)->position.x += METERS_TO_PIXELS(pObjects.at(i)->velocityVec.x) * time + 0.5 * pObjects.at(i)->acceleration.x * pow(time, 2);
+			pObjects.at(i)->velocityVec.x += pObjects.at(i)->acceleration.x * time;
 		}
 	}
 }
 
-void ModulePhysics::Bounce(size_t i)
+void ModulePhysics::BounceGround(size_t i)
 {
 	if (pObjects.at(i)->bounceCoef > 0.00)
 	{
@@ -308,6 +321,21 @@ void ModulePhysics::Bounce(size_t i)
 		pObjects.at(0)->active = false;
 		App->scene_intro->resetball();
 	}
+}
+
+void ModulePhysics::BounceRoof()
+{
+	pObjects.at(0)->force.y += ((pObjects.at(0)->velocityVec.y * -1) / time) * pObjects.at(0)->mass;
+	pObjects.at(0)->acceleration.y = (pObjects.at(0)->force.y / pObjects.at(0)->mass);
+	pObjects.at(0)->velocityVec.y = pObjects.at(0)->acceleration.y * time;
+}
+
+void ModulePhysics::BounceWall()
+{
+	pObjects.at(0)->force.x -= ((pObjects.at(0)->velocityVec.x) / time) * pObjects.at(0)->mass;
+
+	pObjects.at(0)->acceleration.x = (pObjects.at(0)->force.x / pObjects.at(0)->mass);
+	pObjects.at(0)->velocityVec.x = pObjects.at(0)->acceleration.x * time;
 }
 
 void ModulePhysics::Collision_NoAdjustment()
@@ -327,9 +355,30 @@ void ModulePhysics::Collision_Teleport()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			pObjects.at(0)->position.y = pObjects.at(1)->position.y - pObjects.at(0)->objectRect.h/2 - 1;
+			if ((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h) <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h)) {
+				if ((pObjects.at(0)->position.x + pObjects.at(0)->objectRect.w) <= (pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w)) {
+					if (pObjects.at(0)->position.x >= pObjects.at(i)->position.x) {
+						if (pObjects.at(0)->position.y <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h)) {
+							pObjects.at(0)->position.y = pObjects.at(i)->position.y - pObjects.at(0)->objectRect.h/2 - 1;
+							BounceGround(i);
+							break;
+						}
+					}
+				}
+			}
 
-			Bounce(i);
+			if ((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h) >= pObjects.at(i)->objectRect.y &&
+				pObjects.at(0)->position.y <= (pObjects.at(i)->position.y + pObjects.at(i)->objectRect.h) && 
+				(pObjects.at(0)->position.x + pObjects.at(0)->objectRect.w) >= (pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w) ||
+				(pObjects.at(0)->position.x <= pObjects.at(i)->position.x))
+			{
+				pObjects.at(0)->position.x = pObjects.at(i)->position.x + pObjects.at(i)->objectRect.w + 1 + (pObjects.at(0)->objectRect.w/2);
+				BounceWall();
+			}
+			else {
+				pObjects.at(0)->position.y = pObjects.at(i)->objectRect.y + pObjects.at(i)->objectRect.h + 1 + pObjects.at(0)->objectRect.h;
+				BounceRoof();
+			}
 		}
 	}
 }
@@ -340,13 +389,18 @@ void ModulePhysics::Collision_Iterative()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			while (pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h/2 + 1 > pObjects.at(i)->position.y && pObjects.at(i)->bounceCoef < 0.00)
+			while (((pObjects.at(0)->position.y + pObjects.at(0)->objectRect.h/2 + 1) > pObjects.at(1)->position.y) && pObjects.at(i)->bounceCoef > 0.00)
 			{
-				pObjects.at(0)->position.x -= pObjects.at(0)->velocityVec.x;
-				pObjects.at(0)->position.y -= pObjects.at(0)->velocityVec.y;
+				if (pObjects.at(0)->velocityVec.x > 0) {
+					pObjects.at(0)->position.x++;
+				}
+				else {
+					pObjects.at(0)->position.x--;
+				}
+				pObjects.at(0)->position.y --;
 			}
 
-			Bounce(i);
+			BounceGround(i);
 		}
 	}
 }
@@ -357,7 +411,7 @@ void ModulePhysics::Collision_Raycast()
 	{
 		if (SDL_HasIntersection(&pObjects.at(0)->objectRect, &pObjects.at(i)->objectRect) && pObjects.at(i)->etype == EntityType::GROUND)
 		{
-			Bounce(i);
+			BounceGround(i);
 		}
 	}
 }
