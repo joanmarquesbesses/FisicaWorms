@@ -6,6 +6,8 @@ Collaborators:
 - Salvador Bernades - https://github.com/SalvaBernades
 - Pol Celaya - https://github.com/pcelaya
 
+Project GitHub Link: https://github.com/joanmarquesbesses/FisicaWorms
+
 Controls:
 
 - Movement
@@ -24,8 +26,11 @@ Controls:
 
 - Others:
 
-   F2 Change mode
+   F1 DebugMode
+
+   F2 Change Integrator
 
    F3 Collision type
 
+   F4 Enable/Disable Air drag/lift
    
