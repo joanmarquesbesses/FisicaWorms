@@ -6,7 +6,7 @@ Collaborators:
 - Salvador Bernades Iglesias - https://github.com/SalvaBernades
 
 Github Link:
-- [https://github.com/SalvaBernades/PinballFisic](https://github.com/joanmarquesbesses/FisicaWorms)
+- [https://github.com/joanmarquesbesses/FisicaWorms](https://github.com/joanmarquesbesses/FisicaWorms)
 
 Gameplay:
 
