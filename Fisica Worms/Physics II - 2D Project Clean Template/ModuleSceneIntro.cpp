@@ -171,6 +171,45 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(textureC2, Canon2.x, Canon2.y, &C2currentAnimation->GetCurrentFrame());
 	}
 
+	if (bola->active == true) {
+		if (bola->objectRect.x < 0 || bola->objectRect.x > SCREEN_WIDTH) {
+			resetball();
+		}
+		if (bola->objectRect.y > SCREEN_HEIGHT) {
+			resetball();
+		}
+	}
+
+	if (actualShooter == 0) {
+		if (SDL_HasIntersection(&bola->objectRect, &Canon2) && !hit) {
+			hit = true;
+			C2Lives--;
+		}
+	}
+	else {
+		if (SDL_HasIntersection(&bola->objectRect, &Canon) && !hit) {
+			hit = true;
+			C1Lives--;
+
+		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		resetball();
+	}
+
+	if (bola->inrest)
+	{
+		if (actualShooter == 0) {
+			bola->position.x = Canon.x + 10;
+			bola->position.y = Canon.y + 10;
+		}
+		else {
+			bola->position.x = Canon2.x + 10;
+			bola->position.y = Canon2.y + 10;
+		}
+	}
 
 	int R = 0;
 	int D = 0;
@@ -214,9 +253,11 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->DrawLine(bola->position.x, bola->position.y, App->input->GetMouseX(), App->input->GetMouseY(), r, g, b);
 
 	r = 0; g = 33; b = 129;
-	App->renderer->DrawQuad(Canon, r, g, b, false);
+	if(debugMode)
+	App->renderer->DrawQuad(Canon, r, g, b);
 	r = 255; g = 0; b = 129;
-	App->renderer->DrawQuad(Canon2, r, g, b, false);
+	if (debugMode)
+	App->renderer->DrawQuad(Canon2, r, g, b);
 
 	for (size_t i = 0; i < App->physics->pObjects.size(); i++)
 	{
@@ -253,17 +294,7 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
-	if (bola->inrest) 
-	{
-		if (actualShooter == 0) {
-			bola->position.x = Canon.x + 10;
-			bola->position.y = Canon.y + 10;
-		}
-		else {
-			bola->position.x = Canon2.x + 10;
-			bola->position.y = Canon2.y + 10;
-		}
-	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && bola->inrest)
 	{
@@ -280,25 +311,6 @@ update_status ModuleSceneIntro::Update()
 			C2currentAnimation = &C2attackAnimation;
 		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		resetball();
-	}
-
-	if (actualShooter == 0) {
-		if (SDL_HasIntersection(&bola->objectRect, &Canon2) && !hit) {
-			hit = true;
-			C2Lives--;		
-		}
-	}
-	else {
-		if (SDL_HasIntersection(&bola->objectRect, &Canon) && !hit) {
-			hit = true;
-			C1Lives--;
-			
-		}
-	}	
 
 	if (C2Lives <= 0)
 	{

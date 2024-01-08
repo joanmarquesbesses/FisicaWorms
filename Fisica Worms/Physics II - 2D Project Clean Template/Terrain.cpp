@@ -27,5 +27,6 @@ Terrain::Terrain(SDL_Rect area, EntityType etype) : PhysicEntity(position, mass,
 
 void Terrain::Draw()
 {
-	App->renderer->DrawQuad(objectRect, r, g, b, App->scene_intro->debugMode);
+	if(App->scene_intro->debugMode)
+	App->renderer->DrawQuad(objectRect, r, g, b);
 }
